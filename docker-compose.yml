@@ -1,0 +1,20 @@
+version: '3.3'
+services:
+  postgres:
+    image: postgres:13
+    environment:
+      - POSTGRES_DB=intfinity_ecommerce
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=intfinity
+    ports:
+      - 5432:5432
+    volumes:
+      - ./postgres_data:/var/lib/postgres/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+      - PGADMIN_DEFAULT_PASSWORD=intfinity
+    ports:
+      - 5050:80
