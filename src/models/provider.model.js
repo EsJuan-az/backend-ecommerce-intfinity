@@ -31,6 +31,10 @@ const ProviderSchema = {
         allowNull: false,
         unique: true,
     },
+    active: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true,
+    },
 };
 
 class Provider extends Model{

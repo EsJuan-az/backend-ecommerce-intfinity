@@ -5,7 +5,8 @@ const ProductData = require('./products.model');
 const OrderProductData = require('./orders_products.model');
 const CategoryData = require('./category.model');
 const CompanyData = require('./company.model');
-const ProviderData = require('./provider.model')
+const ProviderData = require('./provider.model');
+const ImageData = require('./image.model');
 
 const models = [
     UserData,
@@ -15,6 +16,7 @@ const models = [
     CategoryData,
     CompanyData,
     ProviderData,
+    ImageData,
 ];
 
 function associateModels(){
@@ -25,12 +27,34 @@ function associateModels(){
     const { model: Company } = CompanyData;
     const { model: Category } = CategoryData;
     const { model: Provider } = ProviderData;
-
+    const { model: Image } = ImageData;
+    //Company has logo
+    Company.hasOne( Image, {
+        as: 'Logo',
+        foreignKey: {
+            allowNull: true,
+        },
+        });
+    //User has profile pic
+    User.hasOne( Image, {
+        as: 'ProfilePic',
+        foreignKey: {
+            allowNull: true,
+        },
+        });
+    //Product has images
+    Product.hasMany( Image, {
+        as: 'Images',
+        foreignKey: {
+            allowNull: true,
+        },
+        });
     //associates companies with everithing, Here are the 1-1 relations
-    [User, Order, Product].map( M => {
+    [ User, Order, Product, Category ].map( M => {
         Company.hasMany( M );
         M.belongsTo( Company );
     });
+
     //A N-1 relation occurs with Providers
     Company.belongsToMany( Provider, { through: 'companies_providers' } );
     Provider.belongsToMany( Company, { through: 'companies_providers' } );

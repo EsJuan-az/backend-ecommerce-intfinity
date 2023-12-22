@@ -1,34 +1,34 @@
 const { Model, DataTypes } = require('sequelize');
-const CATEGORY_TABLE = 'categories';
-const CategorySchema = {
+const IMAGE_TABLE = 'images';
+const ImageSchema = {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         allowNull: false,
+        autoIncrement: true,
     },
-    name: {
+    URL: {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    active: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: true,
+    alternative_text: {
+        type: DataTypes.STRING,
+        allowNull: true,
     },
-};
+}
 
-class Category extends Model{
+class Image extends Model{
     static config( sequelize ){
         return {
             sequelize,
-            tableName: CATEGORY_TABLE,
-            modelName: 'Category',
+            tableName: IMAGE_TABLE,
+            modelName: 'Image',
             timestamps: true,
         };
     }
 }
-
 module.exports = {
-    model: Category,
-    schema: CategorySchema,
-    table: CATEGORY_TABLE,
+    model: Image,
+    schema: ImageSchema,
+    table: IMAGE_TABLE,
 };
