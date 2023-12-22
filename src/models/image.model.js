@@ -1,12 +1,6 @@
 const { Model, DataTypes } = require('sequelize');
 const IMAGE_TABLE = 'images';
 const ImageSchema = {
-    id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        allowNull: false,
-        autoIncrement: true,
-    },
     URL: {
         type: DataTypes.STRING,
         allowNull: false,

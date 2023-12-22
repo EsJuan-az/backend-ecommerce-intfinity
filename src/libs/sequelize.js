@@ -3,10 +3,10 @@ const { db } = require('../config');
 const defineModels = require('../models');
 const sequelize = new Sequelize( `postgres://${encodeURIComponent(db.user)}:${encodeURIComponent(db.password)}@${db.host}:${db.port}/${db.name}`, {
     dialect: 'postgres',
-    logging: ( sql ) => console.log(sql),
+    logging: ( sql ) => console.log(sql + "\n\n"),
 } );
 
 defineModels( sequelize );
-sequelize.sync({ alter: true, force: true});
+sequelize.sync({ alter: true });
 
 module.exports = sequelize;

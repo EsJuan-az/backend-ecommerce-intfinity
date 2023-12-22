@@ -1,7 +1,9 @@
+const { ValidationError } = require("sequelize");
+
 module.exports = {
     //Displays errors in console
     logErrors(err, req, res, next){
-        console.log(err);
+        console.log("ERROR", err);
         next(err);
     },
     //If the error is boom, continue
@@ -14,9 +16,12 @@ module.exports = {
                 },
             } = err;
             return res.status( statusCode )
-                        .json( payload );
+                        .json({
+                            ...payload,
+                            statusCode,
+                        });
         }
-        next(err)
+        next(err);
     },
     //If the error is orm, continue
     ormHandler( err, req, res, next ){
@@ -25,7 +30,8 @@ module.exports = {
             return res.status(409)
                         .json({
                             message,
-                            errors
+                            errors,
+                            statusCode: 409,
                         });
         }
         next(err);
@@ -40,6 +46,7 @@ module.exports = {
                     .json({
                         message,
                         stack,
+                        statusCode: 500,
                     })
     }
 };

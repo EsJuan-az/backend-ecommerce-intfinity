@@ -1,11 +1,6 @@
 const { Model, DataTypes } = require('sequelize');
 const CATEGORY_TABLE = 'categories';
 const CategorySchema = {
-    id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        allowNull: false,
-    },
     name: {
         type: DataTypes.STRING,
         allowNull: false,

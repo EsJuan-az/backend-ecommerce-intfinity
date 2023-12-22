@@ -1,11 +1,6 @@
 const { Model, DataTypes } = require('sequelize');
 const COMPANY_TABLE = 'companies';
 const CompanySchema = {
-    id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        allowNull: false,
-    },
     holder: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -45,7 +40,6 @@ const CompanySchema = {
     password: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true,
     },
     active: {
         type: DataTypes.BOOLEAN,
@@ -60,6 +54,12 @@ class Company extends Model{
             tableName: COMPANY_TABLE,
             modelName: 'Company',
             timestamps: true,
+            indexes: [
+                {
+                    unique: true,
+                    fields: ['email', 'active']
+                }
+            ],
         };
     }
 }

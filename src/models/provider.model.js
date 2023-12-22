@@ -1,14 +1,13 @@
 const { Model, DataTypes } = require('sequelize');
 const PROVIDER_TABLE = 'providers';
 const ProviderSchema = {
-    id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        allowNull: false,
-    },
     name: {
         type: DataTypes.STRING,
         allowNull: false,
+    },
+    description: {
+        type: DataTypes.STRING,
+        allowNull: true,
     },
     NIT: {
         type: DataTypes.STRING,
@@ -44,6 +43,12 @@ class Provider extends Model{
             tableName: PROVIDER_TABLE,
             modelName: 'Provider',
             timestamps: true,
+            indexes: [
+                {
+                    unique: true,
+                    fields: ['email', 'active']
+                }
+            ],
         };
     }
 }

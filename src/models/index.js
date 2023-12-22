@@ -1,8 +1,8 @@
 const { DataTypes } = require('sequelize');
-const UserData = require('./users.model');
-const OrderData = require('./orders.model');
-const ProductData = require('./products.model');
-const OrderProductData = require('./orders_products.model');
+const UserData = require('./user.model');
+const OrderData = require('./order.model');
+const ProductData = require('./product.model');
+const OrderProductData = require('./order_product.model');
 const CategoryData = require('./category.model');
 const CompanyData = require('./company.model');
 const ProviderData = require('./provider.model');
@@ -14,8 +14,8 @@ const models = [
     ProductData,
     OrderProductData,
     CategoryData,
-    CompanyData,
     ProviderData,
+    CompanyData,
     ImageData,
 ];
 
@@ -35,6 +35,7 @@ function associateModels(){
             allowNull: true,
         },
         });
+
     //User has profile pic
     User.hasOne( Image, {
         as: 'ProfilePic',
@@ -42,9 +43,18 @@ function associateModels(){
             allowNull: true,
         },
         });
+
     //Product has images
     Product.hasMany( Image, {
         as: 'Images',
+        foreignKey: {
+            allowNull: true,
+        },
+        });
+
+    //Category has image
+    Product.hasMany( Image, {
+        as: 'Image',
         foreignKey: {
             allowNull: true,
         },

@@ -3,6 +3,7 @@ const express = require('express');
 const port = 5051;
 //Extern code
 const { embedErrorMiddlewares } = require('./middlewares');
+const embedRoutes = require('./routes')
 
 
 class Server{
@@ -18,11 +19,12 @@ class Server{
     }
     preset(){
         //Body parsing
+        this.app.use( express.urlencoded({ extended: true }) );
         this.app.use( express.json() );
+        //embedRoutes: insert every model router into the main server.
+        embedRoutes( this.app );
         //embedErrorMiddlewares: insert every error middleware into the main router.
         embedErrorMiddlewares( this.app );
-        //embedRoutes: insert every model router into the main server.
-
     }
     listen(){
         //Listens server
