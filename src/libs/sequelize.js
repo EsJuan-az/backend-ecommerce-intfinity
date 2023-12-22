@@ -7,6 +7,6 @@ const sequelize = new Sequelize( `postgres://${encodeURIComponent(db.user)}:${en
 } );
 
 defineModels( sequelize );
-sequelize.sync();
+sequelize.sync({ alter: true, force: true});
 
 module.exports = sequelize;

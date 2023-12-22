@@ -16,7 +16,6 @@ const UserSchema = {
     email: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true,
     },
     name: {
         type: DataTypes.STRING,
@@ -35,11 +34,15 @@ const UserSchema = {
         type: DataTypes.STRING,
         allowNull: false,
     },
+    active: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true,
+    },
 
 };
 
 class User extends Model{
-    static associate(){
+    static associations(){
         //We define relations.
     }
     static config( sequelize ){
@@ -48,6 +51,12 @@ class User extends Model{
             tableName: USER_TABLE,
             modelName: 'User',
             timestamps: true,
+            indexes: [
+                {
+                    unique: true,
+                    fields: ['email', 'CompanyId']
+                }
+            ],
         };
     }
 }
