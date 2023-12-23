@@ -19,7 +19,7 @@ const UserSchema = {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    phone_number: {
+    phone: {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true, 
@@ -49,6 +49,10 @@ class User extends Model{
                 {
                     unique: true,
                     fields: ['email', 'CompanyId', 'active']
+                },
+                {
+                    unique: true,
+                    fields: ['phone','CompanyId', 'active']
                 }
             ],
         };

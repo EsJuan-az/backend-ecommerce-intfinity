@@ -1,93 +1,80 @@
-const UserService = require('../services/user.service');
+const ImageService = require('../services/image.service')
 module.exports = {
-    async findAllUsers( req, res, next ){
+    async findAllImages(req, res, next){
         try{
-            const {
-                params: {
-                    company_id
-                },
-            } = req;
-            const users = await UserService.findAll( company_id );
+            const images = await ImageService.findAll();
             return res.status(200)
                         .json({
-                            result: users,
+                            result: images,
                             statusCode: 200,
                         });
         }catch(err){
             next(err);
         }
     },
-    async findOneUser( req, res, next ){
+    async findOneImage( req, res, next ){
         try{
             const {
                 params: {
-                    company_id,
                     id,
                 },
             } = req;
-            const user = await UserService.findOne( company_id, id );
+            const image = await ImageService.findOne( id );
             return res.status(200)
                         .json({
-                            result: user,
+                            result: image,
                             statusCode: 200,
                         });
         }catch(err){
             next(err);
         }
     },
-    async createUser( req, res, next ){
+    async createImage( req, res, next ){
         try{
-            const {
-                params: {
-                    company_id,
-                },
-                body,
-            } = req;
-            const user = await UserService.create( company_id, body );
+            const { body } = req;
+            const newImage = await ImageService.create( body );
             return res.status(201)
                         .json({
-                            result: user,
+                            result: newImage,
                             statusCode: 201,
                         });
         }catch(err){
             next(err);
         }
     },
-    async updateUser( req, res, next ){
+    async updateImage( req, res, next ){
         try{
             const {
                 params: {
-                    company_id,
-                    id
+                    id,
                 },
                 body,
             } = req;
-            const newUser = await UserService.update( company_id, id, body );
+            const newImage = await ImageService.update( id, body );
             return res.status(200)
                         .json({
-                            result: newUser,
+                            result: newImage,
                             statusCode: 200,
                         });
         }catch(err){
             next(err);
         }
     },
-    async deleteUser( req, res, next ){
+    async deleteImage( req, res, next ){
         try{
             const {
                 params: {
-                    company_id,
                     id,
                 },
             } = req;
-            const newUser = await UserService.delete( company_id, id );
+            const newImage = await ImageService.delete( id );
             return res.status(200)
                         .json({
-                            result: newUser,
+                            result: newImage,
                             statusCode: 200,
                         });
         }catch(err){
             next(err);
         }
-    },
+    }
 }

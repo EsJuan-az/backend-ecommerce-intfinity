@@ -7,7 +7,7 @@ class ProductService{
                 CompanyId: company_id,
                 active: true,
             },
-            include: ['Images']
+            include: ['Images'],
         });
         return products;
     }
@@ -18,7 +18,7 @@ class ProductService{
                 CompanyId: company_id,
                 active: true,
             },
-            include: ['Images']
+            include: ['Images'],
         });
         if( !product ){
             throw boom.notFound('product not found');
@@ -29,6 +29,8 @@ class ProductService{
         const product = await Product.create( {
             CompanyId: company_id,
             ...data,
+        }, {
+            include: ['Images'],
         });
         return product;
     }
@@ -37,6 +39,8 @@ class ProductService{
         const newProduct = await product.update({
             ...data,
             CompanyId: company_id,
+        }, {
+            include: ['Images'],
         });
         return newProduct;
     }
@@ -45,4 +49,4 @@ class ProductService{
         return newProduct;
     }
 }
-module.exports = ProductService.instance;
+module.exports = ProductService;

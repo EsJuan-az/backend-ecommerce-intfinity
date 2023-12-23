@@ -23,9 +23,10 @@ class ImageService{
     }
     static async delete( id ){
         const image = await ImageService.findOne( id );
+        const retImage = image.toJSON();
         //TODO: Destroy link.
         const newImage = await image.destroy();
-        return newImage;
+        return retImage;
     }
 }
 module.exports = ImageService;

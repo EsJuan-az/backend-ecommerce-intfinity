@@ -25,11 +25,6 @@ const ProviderSchema = {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    password: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true,
-    },
     active: {
         type: DataTypes.BOOLEAN,
         defaultValue: true,
@@ -46,8 +41,12 @@ class Provider extends Model{
             indexes: [
                 {
                     unique: true,
-                    fields: ['email', 'active']
-                }
+                    fields: ['email', 'active', 'CompanyId'],
+                },
+                {
+                    unique: true,
+                    fields: ['phone', 'active', 'CompanyId'],
+                },
             ],
         };
     }

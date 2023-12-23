@@ -58,6 +58,10 @@ class Company extends Model{
                 {
                     unique: true,
                     fields: ['email', 'active']
+                },
+                {
+                    unique: true,
+                    fields: ['phone', 'active']
                 }
             ],
         };

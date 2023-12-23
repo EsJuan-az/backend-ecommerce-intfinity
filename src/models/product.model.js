@@ -17,9 +17,6 @@ const ProductSchema = {
         type: DataTypes.STRING,
         allowNull: true,
     },
-    provider: {
-        type: DataTypes.STRING,
-    },
     stock: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -30,7 +27,7 @@ const ProductSchema = {
     },
     refer_id: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
     },
     active: {
         type: DataTypes.BOOLEAN,

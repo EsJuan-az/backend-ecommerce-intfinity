@@ -1,23 +1,23 @@
-const UserService = require('../services/user.service');
+const OrderService = require('../services/order.service');
 module.exports = {
-    async findAllUsers( req, res, next ){
+    async findAllOrders( req, res, next ){
         try{
             const {
                 params: {
                     company_id
                 },
             } = req;
-            const users = await UserService.findAll( company_id );
+            const order = await OrderService.findAll( company_id );
             return res.status(200)
                         .json({
-                            result: users,
+                            result: order,
                             statusCode: 200,
                         });
         }catch(err){
             next(err);
         }
     },
-    async findOneUser( req, res, next ){
+    async findOneOrder( req, res, next ){
         try{
             const {
                 params: {
@@ -25,17 +25,17 @@ module.exports = {
                     id,
                 },
             } = req;
-            const user = await UserService.findOne( company_id, id );
+            const order = await OrderService.findOne( company_id, id );
             return res.status(200)
                         .json({
-                            result: user,
+                            result: order,
                             statusCode: 200,
                         });
         }catch(err){
             next(err);
         }
     },
-    async createUser( req, res, next ){
+    async createOrder( req, res, next ){
         try{
             const {
                 params: {
@@ -43,17 +43,17 @@ module.exports = {
                 },
                 body,
             } = req;
-            const user = await UserService.create( company_id, body );
+            const order = await OrderService.create( company_id, body );
             return res.status(201)
                         .json({
-                            result: user,
+                            result: order,
                             statusCode: 201,
                         });
         }catch(err){
             next(err);
         }
     },
-    async updateUser( req, res, next ){
+    async updateOrder( req, res, next ){
         try{
             const {
                 params: {
@@ -62,17 +62,17 @@ module.exports = {
                 },
                 body,
             } = req;
-            const newUser = await UserService.update( company_id, id, body );
+            const newOrder = await OrderService.update( company_id, id, body );
             return res.status(200)
                         .json({
-                            result: newUser,
+                            result: newOrder,
                             statusCode: 200,
                         });
         }catch(err){
             next(err);
         }
     },
-    async deleteUser( req, res, next ){
+    async deleteOrder( req, res, next ){
         try{
             const {
                 params: {
@@ -80,10 +80,10 @@ module.exports = {
                     id,
                 },
             } = req;
-            const newUser = await UserService.delete( company_id, id );
+            const newOrder = await OrderService.delete( company_id, id );
             return res.status(200)
                         .json({
-                            result: newUser,
+                            result: newOrder,
                             statusCode: 200,
                         });
         }catch(err){

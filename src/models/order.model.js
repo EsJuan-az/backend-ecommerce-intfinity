@@ -12,9 +12,11 @@ const OrderSchema = {
     },
     bill_reference: {
         type: DataTypes.STRING,
+        allowNull: true,
     },
     direction: {
         type: DataTypes.STRING,
+        allowNull: false,
     },
     active: {
         type: DataTypes.BOOLEAN,

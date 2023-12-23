@@ -1,50 +1,50 @@
 const { Router } = require('express');
 const {
-    findAllUsers,
-    findOneUser,
-    createUser,
-    updateUser,
-    deleteUser,
-} = require('../controllers/user.controller');
+    findAllImages,
+    findOneImage,
+    createImage,
+    updateImage,
+    deleteImage
+} = require('../controllers/image.controller');
 const embedMethods = require('../helpers/embedMethods');
 const router = Router();
 
-const userRouter = {
-    prefix: '/:company_id/user',
+const imageRouter = {
     routes: [
         {
             method: 'get',
             path: '/',
             middlewares: [],
-            controller: findAllUsers,
+            controller: findAllImages,
         },
         {
             method: 'get',
             path: '/:id',
             middlewares: [],
-            controller: findOneUser,
+            controller: findOneImage,
         },
         {
             method: 'post',
             path: '/',
             middlewares: [],
-            controller: createUser,
+            controller: createImage,
         },
         {
             method: 'put',
             path: '/:id',
             middlewares: [],
-            controller: updateUser,
+            controller: updateImage,
         },
         {
             method: 'delete',
             path: '/:id',
             middlewares: [],
-            controller: deleteUser,
+            controller: deleteImage,
         }
     ],
 }
 
-embedMethods( userRouter, router );
+embedMethods( imageRouter, router );
+
 
 module.exports = router;

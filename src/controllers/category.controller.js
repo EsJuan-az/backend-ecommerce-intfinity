@@ -1,23 +1,23 @@
-const UserService = require('../services/user.service');
+const CategoryService = require('../services/category.service');
 module.exports = {
-    async findAllUsers( req, res, next ){
+    async findAllCategories( req, res, next ){
         try{
             const {
                 params: {
                     company_id
                 },
             } = req;
-            const users = await UserService.findAll( company_id );
+            const category = await CategoryService.findAll( company_id );
             return res.status(200)
                         .json({
-                            result: users,
+                            result: category,
                             statusCode: 200,
                         });
         }catch(err){
             next(err);
         }
     },
-    async findOneUser( req, res, next ){
+    async findOneCategory( req, res, next ){
         try{
             const {
                 params: {
@@ -25,17 +25,17 @@ module.exports = {
                     id,
                 },
             } = req;
-            const user = await UserService.findOne( company_id, id );
+            const category = await CategoryService.findOne( company_id, id );
             return res.status(200)
                         .json({
-                            result: user,
+                            result: category,
                             statusCode: 200,
                         });
         }catch(err){
             next(err);
         }
     },
-    async createUser( req, res, next ){
+    async createCategory( req, res, next ){
         try{
             const {
                 params: {
@@ -43,17 +43,17 @@ module.exports = {
                 },
                 body,
             } = req;
-            const user = await UserService.create( company_id, body );
+            const category = await CategoryService.create( company_id, body );
             return res.status(201)
                         .json({
-                            result: user,
+                            result: category,
                             statusCode: 201,
                         });
         }catch(err){
             next(err);
         }
     },
-    async updateUser( req, res, next ){
+    async updateCategory( req, res, next ){
         try{
             const {
                 params: {
@@ -62,17 +62,17 @@ module.exports = {
                 },
                 body,
             } = req;
-            const newUser = await UserService.update( company_id, id, body );
+            const newCategory = await CategoryService.update( company_id, id, body );
             return res.status(200)
                         .json({
-                            result: newUser,
+                            result: newCategory,
                             statusCode: 200,
                         });
         }catch(err){
             next(err);
         }
     },
-    async deleteUser( req, res, next ){
+    async deleteCategory( req, res, next ){
         try{
             const {
                 params: {
@@ -80,10 +80,10 @@ module.exports = {
                     id,
                 },
             } = req;
-            const newUser = await UserService.delete( company_id, id );
+            const newCategory = await CategoryService.delete( company_id, id );
             return res.status(200)
                         .json({
-                            result: newUser,
+                            result: newCategory,
                             statusCode: 200,
                         });
         }catch(err){

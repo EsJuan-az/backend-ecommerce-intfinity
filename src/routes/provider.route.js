@@ -1,50 +1,50 @@
 const { Router } = require('express');
 const {
-    findAllUsers,
-    findOneUser,
-    createUser,
-    updateUser,
-    deleteUser,
-} = require('../controllers/user.controller');
+    findAllProviders,
+    findOneProvider,
+    createProvider,
+    updateProvider,
+    deleteProvider,
+} = require('../controllers/provider.controller');
 const embedMethods = require('../helpers/embedMethods');
 const router = Router();
 
-const userRouter = {
-    prefix: '/:company_id/user',
+const providerRouter = {
+    prefix: '/:company_id/provider',
     routes: [
         {
             method: 'get',
             path: '/',
             middlewares: [],
-            controller: findAllUsers,
+            controller: findAllProviders,
         },
         {
             method: 'get',
             path: '/:id',
             middlewares: [],
-            controller: findOneUser,
+            controller: findOneProvider,
         },
         {
             method: 'post',
             path: '/',
             middlewares: [],
-            controller: createUser,
+            controller: createProvider,
         },
         {
             method: 'put',
             path: '/:id',
             middlewares: [],
-            controller: updateUser,
+            controller: updateProvider,
         },
         {
             method: 'delete',
             path: '/:id',
             middlewares: [],
-            controller: deleteUser,
+            controller: deleteProvider,
         }
     ],
 }
 
-embedMethods( userRouter, router );
+embedMethods( providerRouter, router );
 
 module.exports = router;

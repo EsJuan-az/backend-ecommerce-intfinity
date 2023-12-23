@@ -66,8 +66,8 @@ function associateModels(){
     });
 
     //A N-1 relation occurs with Providers
-    Company.belongsToMany( Provider, { through: 'companies_providers' } );
-    Provider.belongsToMany( Company, { through: 'companies_providers' } );
+    Company.hasMany( Provider );
+    Provider.belongsTo( Company );
 
     //associates users and orders.
     User.hasMany( Order );

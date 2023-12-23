@@ -1,37 +1,38 @@
 const boom = require('@hapi/boom');
-const { models: { Provider } } = require('../libs/sequelize');
+const { models: { Provider, Company } } = require('../libs/sequelize');
 class ProviderService{
     static async findAll( company_id ){
-        const provider = await Provider.findAll({
+        let providers = await Provider.findAll({
             where: {
                 CompanyId: company_id,
                 active: true,
             },
         });
-        return provider;
+        
+        return providers;
     }
     static async findOne( company_id, id ){
-        const provider = await Provider.findOne({
+        let provider = await Provider.findOne({
             where: {
-                id,
-                CompanyId: company_id,
+                id: id,
                 active: true,
+                CompanyId: company_id,
             },
         });
+
         if( !provider ){
             throw boom.notFound('provider not found');
         }
-        return provider;
+
+        return provider
     }
     static async create( company_id, data ){
-        const provider = await Provider.create( {
-            CompanyId: company_id,
-            ...data,
-        });
+        const provider = await Provider.create( { ...data, CompanyId: company_id } );
         return provider;
     }
     static async update( company_id, id, data ){
         const provider = await ProviderService.findOne( company_id, id );
+        
         const newProvider = await provider.update({
             ...data,
             CompanyId: company_id,
@@ -41,16 +42,20 @@ class ProviderService{
     static async delete( company_id, id ){
         const provider = await ProviderService.findOne( company_id, id );
         //Look if there's another account with the same email and status (won't be used).
-        const unactiveProvider = await Provider.findOne({
+        const unactiveProviders = await Provider.findAll({
             where:{
-                email: provider.email,
+                [Op.or]: [
+                  { email: provider.email },
+                  { phone: provider.phone },  
+                ],
                 active: false,
+                CompanyId: company_id,
             },
         });
-        if( !!unactiveProvider ) await unactiveProvider.destroy();
+        await Promise.all( unactiveProviders.map( (p) => p.destroy() ) );
         //Finally we update 
         const newProvider = await provider.update({ active:false });
         return newProvider;
     }
 }
-module.exports = ProviderService.instance;
+module.exports = ProviderService;

@@ -19,7 +19,7 @@ class UserService{
                 CompanyId: company_id,
                 active: true,
             },
-            include: ['ProfilePic']
+            include: ['ProfilePic'],
         });
         if( !user ){
             throw boom.notFound('user not found');
@@ -30,6 +30,8 @@ class UserService{
         const user = await User.create( {
             CompanyId: company_id,
             ...data,
+        }, {
+            include: ['ProfilePic'],
         });
         return user;
     }
@@ -38,22 +40,27 @@ class UserService{
         const newUser = await user.update({
             ...data,
             CompanyId: company_id,
+        }, {
+            include: ['ProfilePic'],
         });
         return newUser;
     }
     static async delete( company_id, id ){
         const user = await UserService.findOne( company_id, id );
         //Look if there's another account with the same email and status (won't be used).
-        const unactiveUser = await User.findOne({
+        const unactiveUsers = await User.findAll({
             where:{
-                email: user.email,
+                [Op.or]: [
+                  { email: user.email },
+                  { phone: user.phone },  
+                ],
                 active: false,
                 CompanyId: company_id,
             },
         });
-        if( !!unactiveUser ) await unactiveUser.destroy();
+        await Promise.all( unactiveUsers.map( (u) => u.destroy() ) );
         //Finally we update 
-        const newUser = await user.update({ active: false });
+        const newUser = await user.update({ active: false }, { include: ['ProfilePic'] });
         return newUser;
     }
 }

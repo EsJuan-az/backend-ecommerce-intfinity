@@ -1,23 +1,23 @@
-const UserService = require('../services/user.service');
+const ProviderService = require('../services/provider.service');
 module.exports = {
-    async findAllUsers( req, res, next ){
+    async findAllProviders( req, res, next ){
         try{
             const {
                 params: {
                     company_id
                 },
             } = req;
-            const users = await UserService.findAll( company_id );
+            const provider = await ProviderService.findAll( company_id );
             return res.status(200)
                         .json({
-                            result: users,
+                            result: provider,
                             statusCode: 200,
                         });
         }catch(err){
             next(err);
         }
     },
-    async findOneUser( req, res, next ){
+    async findOneProvider( req, res, next ){
         try{
             const {
                 params: {
@@ -25,17 +25,17 @@ module.exports = {
                     id,
                 },
             } = req;
-            const user = await UserService.findOne( company_id, id );
+            const provider = await ProviderService.findOne( company_id, id );
             return res.status(200)
                         .json({
-                            result: user,
+                            result: provider,
                             statusCode: 200,
                         });
         }catch(err){
             next(err);
         }
     },
-    async createUser( req, res, next ){
+    async createProvider( req, res, next ){
         try{
             const {
                 params: {
@@ -43,17 +43,17 @@ module.exports = {
                 },
                 body,
             } = req;
-            const user = await UserService.create( company_id, body );
+            const provider = await ProviderService.create( company_id, body );
             return res.status(201)
                         .json({
-                            result: user,
+                            result: provider,
                             statusCode: 201,
                         });
         }catch(err){
             next(err);
         }
     },
-    async updateUser( req, res, next ){
+    async updateProvider( req, res, next ){
         try{
             const {
                 params: {
@@ -62,17 +62,17 @@ module.exports = {
                 },
                 body,
             } = req;
-            const newUser = await UserService.update( company_id, id, body );
+            const newProvider = await ProviderService.update( company_id, id, body );
             return res.status(200)
                         .json({
-                            result: newUser,
+                            result: newProvider,
                             statusCode: 200,
                         });
         }catch(err){
             next(err);
         }
     },
-    async deleteUser( req, res, next ){
+    async deleteProvider( req, res, next ){
         try{
             const {
                 params: {
@@ -80,10 +80,10 @@ module.exports = {
                     id,
                 },
             } = req;
-            const newUser = await UserService.delete( company_id, id );
+            const newProvider = await ProviderService.delete( company_id, id );
             return res.status(200)
                         .json({
-                            result: newUser,
+                            result: newProvider,
                             statusCode: 200,
                         });
         }catch(err){

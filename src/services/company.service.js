@@ -24,26 +24,33 @@ class CompanyService{
         return company;
     }
     static async create( data ){
-        const company = await Company.create( data );
+        const company = await Company.create( data, {
+            include: ['Logo'],
+        });
         return company;
     }
     static async update( id, data ){
         const company = await CompanyService.findOne( id );
-        const newCompany = await company.update( data );
+        const newCompany = await company.update( data, {
+            include: ['Logo'],
+        });
         return newCompany;
     }
     static async delete( id ){
         const company = await CompanyService.findOne( id );
         //Look if there's another account with the same email and status (won't be used).
-        const unactiveCompany = await Company.findOne({
+        const unactiveCompanies = await Company.findAll({
             where:{
-                email: company.email,
+                [Op.or]: [
+                  { email: company.email },
+                  { phone: company.phone },  
+                ],
                 active: false,
             },
         });
-        if( !!unactiveCompany ) await unactiveCompany.destroy();
+        await Promise.all( unactiveCompanies.map( (p) => p.destroy() ) );
         //Finally we update 
-        const newCompany = await company.update({ active:false });
+        const newCompany = await company.update({ active:false }, { include: ['Logo'] });
         return newCompany;
     }
 }
