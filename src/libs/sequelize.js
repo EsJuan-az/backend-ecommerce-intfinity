@@ -1,20 +1,21 @@
 const { Sequelize } = require('sequelize');
 const { db } = require('../config');
+const { URI, ENV } =  db;
 const defineModels = require('../models');
-const {URI} =  db;
-console.log( URI );
 const sequelize = new Sequelize( URI , {
     dialect: 'postgres',
     logging: ( sql ) => console.log(sql + "\n\n"),
     dialectOptions: {
-        ssl: {
+        ssl: ENV != "DEV" ? {
           require: true,
           rejectUnauthorized: false, // Configuración específica para evitar errores de certificado en desarrollo
-        },
+        }
+        :
+        null,
     }
 });
 
 defineModels( sequelize );
-sequelize.sync();
+sequelize.sync({alter: true});
 
 module.exports = sequelize;

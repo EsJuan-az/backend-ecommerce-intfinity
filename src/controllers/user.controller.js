@@ -90,4 +90,25 @@ module.exports = {
             next(err);
         }
     },
+    async loginUser(req, res, next){
+        try{
+            const {
+                params: {
+                    company_id
+                },
+                body: {
+                    email,
+                    password,
+                }
+            } = req;
+            const user = await UserService.login(company_id, email, password);
+            return res.status(202)
+                        .json({
+                            result: user,
+                            statusCode: 202,
+                        });
+        }catch(err){
+            next(err)
+        }
+    }
 }

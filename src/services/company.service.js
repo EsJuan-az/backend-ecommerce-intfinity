@@ -53,5 +53,17 @@ class CompanyService{
         const newCompany = await company.update({ active:false }, { include: ['Logo'] });
         return newCompany;
     }
+    static async login( email, password ){
+        const company = await Company.findOne({
+            where: {
+                email,
+                password,
+            }
+        })
+        if( !company ){
+            throw boom.forbidden('not valid authentication');
+        }
+        return company;
+    }
 }
 module.exports = CompanyService;

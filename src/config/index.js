@@ -4,5 +4,6 @@ module.exports = {
     port: process.env.PORT || 3000,
     db: {
         URI: process.env.CONNECTION_URI,
+        ENV: process.env.ENV
     }
 };

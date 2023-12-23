@@ -76,5 +76,23 @@ module.exports = {
         }catch(err){
             next(err);
         }
+    },
+    async loginCompany(req, res, next){
+        try{
+            const {
+                body: {
+                    email,
+                    password,
+                }
+            } = req;
+            const company = await CompanyService.login(email, password);
+            return res.status(202)
+                        .json({
+                            result: company,
+                            statusCode: 202,
+                        });
+        }catch(err){
+            next(err)
+        }
     }
 }

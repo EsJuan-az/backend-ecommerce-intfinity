@@ -63,5 +63,18 @@ class UserService{
         const newUser = await user.update({ active: false }, { include: ['ProfilePic'] });
         return newUser;
     }
+    static async login( company_id, email, password ){
+        const user = await User.findOne({
+            where: {
+                CompanyId: company_id,
+                email,
+                password,
+            },
+        })
+        if( !user ){
+            throw boom.forbidden('not valid authentication');
+        }
+        return user;
+    }
 }
 module.exports = UserService;

@@ -5,6 +5,7 @@ const {
     createUser,
     updateUser,
     deleteUser,
+    loginUser,
 } = require('../controllers/user.controller');
 const embedMethods = require('../helpers/embedMethods');
 const router = Router();
@@ -41,6 +42,12 @@ const userRouter = {
             path: '/:id',
             middlewares: [],
             controller: deleteUser,
+        },
+        {
+            method: 'post',
+            path: '/login',
+            middlewares: [],
+            controller: loginUser,
         }
     ],
 }

@@ -4,7 +4,8 @@ const {
     findOneCompany,
     createCompany,
     updateCompany,
-    deleteCompany
+    deleteCompany,
+    loginCompany
 } = require('../controllers/company.controller');
 const embedMethods = require('../helpers/embedMethods');
 const router = Router();
@@ -40,6 +41,12 @@ const companyRouter = {
             path: '/:company_id',
             middlewares: [],
             controller: deleteCompany,
+        },
+        {
+            method: 'post',
+            path: '/login',
+            middlewares: [],
+            controller: loginCompany,
         }
     ],
 }
