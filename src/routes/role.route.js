@@ -1,57 +1,50 @@
 const { Router } = require('express');
 const {
-    findAllUsers,
-    findOneUser,
-    createUser,
-    updateUser,
-    deleteUser,
-    loginUser,
-} = require('../controllers/user.controller');
+    findAllRoles,
+    findOneRole,
+    createRole,
+    updateRole,
+    deleteRole
+} = require('../controllers/role.controller');
 const embedMethods = require('../helpers/embedMethods');
 const router = Router();
 
-const userRouter = {
-    prefix: '',
+const roleRouter = {
     routes: [
         {
             method: 'get',
             path: '/',
             middlewares: [],
-            controller: findAllUsers,
+            controller: findAllRoles,
         },
         {
             method: 'get',
             path: '/:id',
             middlewares: [],
-            controller: findOneUser,
+            controller: findOneRole,
         },
         {
             method: 'post',
             path: '/',
             middlewares: [],
-            controller: createUser,
+            controller: createRole,
         },
         {
             method: 'put',
             path: '/:id',
             middlewares: [],
-            controller: updateUser,
+            controller: updateRole,
         },
         {
             method: 'delete',
             path: '/:id',
             middlewares: [],
-            controller: deleteUser,
-        },
-        {
-            method: 'post',
-            path: '/login',
-            middlewares: [],
-            controller: loginUser,
+            controller: deleteRole,
         }
     ],
 }
 
-embedMethods( userRouter, router );
+embedMethods( roleRouter, router );
+
 
 module.exports = router;

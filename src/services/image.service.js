@@ -25,7 +25,7 @@ class ImageService{
         const image = await ImageService.findOne( id );
         const retImage = image.toJSON();
         //TODO: Destroy link.
-        const newImage = await image.destroy();
+        await image.destroy();
         return retImage;
     }
 }

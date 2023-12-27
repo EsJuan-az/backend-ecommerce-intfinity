@@ -1,100 +1,80 @@
-const UserService = require('../services/user.service');
+const RoleService = require('../services/role.service')
 module.exports = {
-    async findAllUsers( req, res, next ){
+    async findAllRoles(req, res, next){
         try{
-            const users = await UserService.findAll();
+            const roles = await RoleService.findAll();
             return res.status(200)
                         .json({
-                            result: users,
+                            result: roles,
                             statusCode: 200,
                         });
         }catch(err){
             next(err);
         }
     },
-    async findOneUser( req, res, next ){
+    async findOneRole( req, res, next ){
         try{
             const {
                 params: {
                     id,
                 },
             } = req;
-            const user = await UserService.findOne( id );
+            const role = await RoleService.findOne( id );
             return res.status(200)
                         .json({
-                            result: user,
+                            result: role,
                             statusCode: 200,
                         });
         }catch(err){
             next(err);
         }
     },
-    async createUser( req, res, next ){
+    async createRole( req, res, next ){
         try{
-            const {
-                body,
-            } = req;
-            const user = await UserService.create( body );
+            const { body } = req;
+            const newRole = await RoleService.create( body );
             return res.status(201)
                         .json({
-                            result: user,
+                            result: newRole,
                             statusCode: 201,
                         });
         }catch(err){
             next(err);
         }
     },
-    async updateUser( req, res, next ){
+    async updateRole( req, res, next ){
         try{
             const {
                 params: {
-                    id
+                    id,
                 },
                 body,
             } = req;
-            const newUser = await UserService.update( id, body );
+            const newRole = await RoleService.update( id, body );
             return res.status(200)
                         .json({
-                            result: newUser,
+                            result: newRole,
                             statusCode: 200,
                         });
         }catch(err){
             next(err);
         }
     },
-    async deleteUser( req, res, next ){
+    async deleteRole( req, res, next ){
         try{
             const {
                 params: {
                     id,
                 },
             } = req;
-            const newUser = await UserService.delete( id );
+            const newRole = await RoleService.delete( id );
             return res.status(200)
                         .json({
-                            result: newUser,
+                            result: newRole,
                             statusCode: 200,
                         });
         }catch(err){
             next(err);
-        }
-    },
-    async loginUser(req, res, next){
-        try{
-            const {
-                body: {
-                    email,
-                    password,
-                }
-            } = req;
-            const user = await UserService.login( email, password);
-            return res.status(202)
-                        .json({
-                            result: user,
-                            statusCode: 202,
-                        });
-        }catch(err){
-            next(err)
         }
     }
 }

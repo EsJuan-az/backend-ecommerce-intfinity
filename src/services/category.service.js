@@ -7,7 +7,7 @@ class CategoryService{
                 CompanyId: company_id,
                 active: true,
             },
-            include: [Product],
+            include: [Product, 'CategoryPic'],
         });
         return category;
     }
@@ -18,7 +18,7 @@ class CategoryService{
                 CompanyId: company_id,
                 active: true,
             },
-            include: [Product],
+            include: [Product, 'CategoryPic'],
         });
         if( !category ){
             throw boom.notFound('category not found');
@@ -30,7 +30,7 @@ class CategoryService{
             ...data,
             CompanyId: company_id,
         }, {
-            include: [Product],
+            include: [Product, 'CategoryPic'],
         });
         return category;
     }
@@ -40,7 +40,7 @@ class CategoryService{
             ...data,
             CompanyId: company_id,
         }, {
-            include: [Product],
+            include: [Product, 'CategoryPic'],
         });
         return newCategory;
     }

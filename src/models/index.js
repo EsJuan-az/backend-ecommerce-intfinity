@@ -7,7 +7,7 @@ const CategoryData = require('./category.model');
 const CompanyData = require('./company.model');
 const ProviderData = require('./provider.model');
 const ImageData = require('./image.model');
-
+const RoleData = require('./role.model');
 const models = [
     UserData,
     OrderData,
@@ -17,6 +17,7 @@ const models = [
     ProviderData,
     CompanyData,
     ImageData,
+    RoleData
 ];
 
 function associateModels(){
@@ -28,6 +29,7 @@ function associateModels(){
     const { model: Category } = CategoryData;
     const { model: Provider } = ProviderData;
     const { model: Image } = ImageData;
+    const { model: Role } = RoleData;
     //Company has logo
     Company.hasOne( Image, {
         as: 'Logo',
@@ -35,7 +37,7 @@ function associateModels(){
             allowNull: true,
         },
         });
-
+    
     //User has profile pic
     User.hasOne( Image, {
         as: 'ProfilePic',
@@ -53,8 +55,8 @@ function associateModels(){
         });
 
     //Category has image
-    Product.hasMany( Image, {
-        as: 'Image',
+    Category.hasOne( Image, {
+        as: 'CategoryPic',
         foreignKey: {
             allowNull: true,
         },
@@ -84,6 +86,10 @@ function associateModels(){
     //associates products and providers
     Provider.hasMany( Product );
     Product.belongsTo( Provider )
+
+    //associates roles and users
+    Role.hasMany( User );
+    User.belongsTo( Role );
 }
 
 function defineModels( sequelize ){

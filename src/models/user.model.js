@@ -28,10 +28,6 @@ const UserSchema = {
         allowNull: false,
         unique: true, 
     },
-    rol: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
     active: {
         type: DataTypes.BOOLEAN,
         defaultValue: true,
@@ -52,11 +48,11 @@ class User extends Model{
             indexes: [
                 {
                     unique: true,
-                    fields: ['email', 'CompanyId', 'active']
+                    fields: ['email', 'active']
                 },
                 {
                     unique: true,
-                    fields: ['phone','CompanyId', 'active']
+                    fields: ['phone', 'active']
                 }
             ],
         };
