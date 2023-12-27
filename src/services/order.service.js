@@ -1,5 +1,5 @@
 const boom = require('@hapi/boom');
-const { models: { Order, Product } } = require('../libs/sequelize');
+const { models: { Order, Product, Customer } } = require('../libs/sequelize');
 class OrderService{
     static async findAll( company_id ){
         const order = await Order.findAll({
@@ -7,7 +7,7 @@ class OrderService{
                 CompanyId: company_id,
                 active: true,
             },
-            include:[Product],
+            include:[Product, Customer],
         });
         return order;
     }
@@ -18,7 +18,7 @@ class OrderService{
                 CompanyId: company_id,
                 active: true,
             },
-            include:[Product]
+            include:[Product, Customer]
         });
         if( !order ){
             throw boom.notFound('order not found');
@@ -30,7 +30,7 @@ class OrderService{
             ...data,
             CompanyId: company_id,
         }, {
-            include:[Product]
+            include:[Product, Customer]
         });
         return order;
     }
@@ -40,7 +40,7 @@ class OrderService{
             ...data,
             CompanyId: company_id,
         }, {
-            include:[Product]
+            include:[Product, Customer]
         });
         return newOrder;
     }

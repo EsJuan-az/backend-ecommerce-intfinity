@@ -5,7 +5,9 @@ function embedRoutes( app ){
         require('./product.route'),
         require('./provider.route'),
         require('./order.route'),
-        require('./category.route')
+        require('./category.route'),
+        require('./customer.route'),
+        require('./branch.route')
     ];  
     routers.forEach( r => app.use('/api/company', r) );
     //Other API base routes

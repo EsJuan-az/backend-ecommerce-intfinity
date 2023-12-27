@@ -11,7 +11,7 @@ const RoleSchema = {
     }
 };
 
-class Category extends Model{
+class Role extends Model{
     static config( sequelize ){
         return {
             sequelize,
@@ -23,7 +23,7 @@ class Category extends Model{
 }
 
 module.exports = {
-    model: Category,
+    model: Role,
     schema: RoleSchema,
     table: ROLE_TABLE,
 };

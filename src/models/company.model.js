@@ -13,11 +13,11 @@ const CompanySchema = {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    direction: {
+    bank_account_type: {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    bank_account_type: {
+    social_reason: {
         type: DataTypes.STRING,
         allowNull: false,
     },

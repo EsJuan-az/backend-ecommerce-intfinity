@@ -7,7 +7,7 @@ const {
 const ORDER_TABLE = 'orders';
 const OrderSchema = {
     status: {
-        type: DataTypes.STRING,
+        type: DataTypes.ENUM('EN ESPERA', 'CONFIRMADO', 'ENTREGADO'),
         defaultValue: 'EN ESPERA',
     },
     bill_reference: {

@@ -8,6 +8,11 @@ const CompanyData = require('./company.model');
 const ProviderData = require('./provider.model');
 const ImageData = require('./image.model');
 const RoleData = require('./role.model');
+const CustomerData = require('./customer.model');
+const BranchData = require('./branch.model');
+const BranchProductData = require('./branch_product.model');
+
+
 const models = [
     UserData,
     OrderData,
@@ -17,7 +22,10 @@ const models = [
     ProviderData,
     CompanyData,
     ImageData,
-    RoleData
+    RoleData,
+    CustomerData,
+    BranchData,
+    BranchProductData
 ];
 
 function associateModels(){
@@ -30,6 +38,11 @@ function associateModels(){
     const { model: Provider } = ProviderData;
     const { model: Image } = ImageData;
     const { model: Role } = RoleData;
+    const { model: Customer } = CustomerData;
+    const { model: Branch } = BranchData;
+    const { model: BranchProduct } = BranchProductData
+
+    //COMPANY:
     //Company has logo
     Company.hasOne( Image, {
         as: 'Logo',
@@ -37,7 +50,17 @@ function associateModels(){
             allowNull: true,
         },
         });
+    //associates companies with everithing, Here are the 1-1 relations
+    [ User, Order, Product, Category, Customer, Branch ].map( M => {
+        Company.hasMany( M );
+        M.belongsTo( Company );
+    });
+    //A N-1 relation occurs with Providers
+    Company.hasMany( Provider );
+    Provider.belongsTo( Company );
     
+
+    //USER:
     //User has profile pic
     User.hasOne( Image, {
         as: 'ProfilePic',
@@ -45,7 +68,14 @@ function associateModels(){
             allowNull: true,
         },
         });
+    //associates roles and users
+    Role.hasMany( User );
+    User.belongsTo( Role );
 
+
+
+
+    //PRODUCT:
     //Product has images
     Product.hasMany( Image, {
         as: 'Images',
@@ -53,7 +83,25 @@ function associateModels(){
             allowNull: true,
         },
         });
+    //associates orders and products through the order_product table.
+    Order.belongsToMany( Product, { through: OrderProduct  } );
+    Product.belongsToMany( Order, { through: OrderProduct  } );
+    //associates products and  categories
+    Category.hasMany( Product );
+    Product.belongsTo( Category );
+    //associates products and providers
+    Provider.hasMany( Product );
+    Product.belongsTo( Provider )
+    //associates branches and products.
+    Branch.belongsToMany( Product, { through: BranchProduct } );
+    Product.belongsToMany( Branch, { through: BranchProduct } );
 
+    
+
+
+
+
+    //CATEGORY:
     //Category has image
     Category.hasOne( Image, {
         as: 'CategoryPic',
@@ -61,35 +109,20 @@ function associateModels(){
             allowNull: true,
         },
         });
-    //associates companies with everithing, Here are the 1-1 relations
-    [ User, Order, Product, Category ].map( M => {
-        Company.hasMany( M );
-        M.belongsTo( Company );
-    });
+    
 
-    //A N-1 relation occurs with Providers
-    Company.hasMany( Provider );
-    Provider.belongsTo( Company );
 
-    //associates users and orders.
-    User.hasMany( Order );
-    Order.belongsTo( User );
 
-    //associates orders and products through the order_product table.
-    Order.belongsToMany( Product, { through: OrderProduct  } );
-    Product.belongsToMany( Order, { through: OrderProduct  } );
+    //CUSTOMER
+    //associates customers and orders.
+    Customer.hasMany( Order );
+    Order.belongsTo( Customer );
 
-    //associates products and  categories
-    Category.hasMany( Product );
-    Product.belongsTo( Category );
+    
 
-    //associates products and providers
-    Provider.hasMany( Product );
-    Product.belongsTo( Provider )
 
-    //associates roles and users
-    Role.hasMany( User );
-    User.belongsTo( Role );
+
+
 }
 
 function defineModels( sequelize ){

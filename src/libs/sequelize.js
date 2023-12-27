@@ -16,6 +16,6 @@ const sequelize = new Sequelize( URI , {
 });
 
 defineModels( sequelize );
-sequelize.sync({alter: true, force: true});
+sequelize.sync({ alter: true });
 
 module.exports = sequelize;

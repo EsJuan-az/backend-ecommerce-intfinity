@@ -1,48 +1,45 @@
 const { Model, DataTypes } = require('sequelize');
-const PRODUCT_TABLE = 'products';
-const ProductSchema = {
+const BRANCH_TABLE = 'branch';
+const BranchSchema = {
     name: {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    color: {
+    direction: {
         type: DataTypes.STRING,
-        allowNull: true,
-    },
-    size: {
-        type: DataTypes.STRING,
-        allowNull: true,
-    },
-    brand: {
-        type: DataTypes.STRING,
-        allowNull: true,
-    },
-    price: {
-        type: DataTypes.FLOAT,
         allowNull: false,
     },
-    refer_id: {
+    city: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
+    },
+    email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    phone: {
+        type: DataTypes.STRING,
+        allowNull: false,
     },
     active: {
         type: DataTypes.BOOLEAN,
         defaultValue: true,
     },
-}
+};
 
-class Product extends Model{
+class Branch extends Model{
     static config( sequelize ){
         return {
             sequelize,
-            tableName: PRODUCT_TABLE,
-            modelName: 'Product',
+            tableName: BRANCH_TABLE,
+            modelName: 'Branch',
             timestamps: true,
         };
     }
 }
+
 module.exports = {
-    model: Product,
-    schema: ProductSchema,
-    table: PRODUCT_TABLE,
+    model: Branch,
+    schema: BranchSchema,
+    table: BRANCH_TABLE,
 };
