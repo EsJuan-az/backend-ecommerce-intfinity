@@ -1,5 +1,6 @@
 const boom = require('@hapi/boom');
 const { models: { Company } } = require('../libs/sequelize');
+const { Op } = require('sequelize');
 class CompanyService{
     static async findAll(){
         const company = await Company.findAll({

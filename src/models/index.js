@@ -11,6 +11,8 @@ const RoleData = require('./role.model');
 const CustomerData = require('./customer.model');
 const BranchData = require('./branch.model');
 const BranchProductData = require('./branch_product.model');
+const PurchaseData = require('./purchase.model');
+const PurchaseProductData = require('./purchase_product.model')
 
 
 const models = [
@@ -25,7 +27,9 @@ const models = [
     RoleData,
     CustomerData,
     BranchData,
-    BranchProductData
+    BranchProductData,
+    PurchaseData,
+    PurchaseProductData,
 ];
 
 function associateModels(){
@@ -40,7 +44,9 @@ function associateModels(){
     const { model: Role } = RoleData;
     const { model: Customer } = CustomerData;
     const { model: Branch } = BranchData;
-    const { model: BranchProduct } = BranchProductData
+    const { model: BranchProduct } = BranchProductData;
+    const { model: Purchase } = PurchaseData;
+    const { model: PurchaseProduct } = PurchaseProductData;
 
     //COMPANY:
     //Company has logo
@@ -51,7 +57,7 @@ function associateModels(){
         },
         });
     //associates companies with everithing, Here are the 1-1 relations
-    [ User, Order, Product, Category, Customer, Branch ].map( M => {
+    [ User, Order, Product, Category, Customer, Branch, Purchase ].map( M => {
         Company.hasMany( M );
         M.belongsTo( Company );
     });
@@ -86,6 +92,9 @@ function associateModels(){
     //associates orders and products through the order_product table.
     Order.belongsToMany( Product, { through: OrderProduct  } );
     Product.belongsToMany( Order, { through: OrderProduct  } );
+    //associates purchases and products through the purchase_product table.
+    Purchase.belongsToMany( Product, { through: PurchaseProduct } );
+    Product.belongsToMany( Purchase, { through: PurchaseProduct } );
     //associates products and  categories
     Category.hasMany( Product );
     Product.belongsTo( Category );
@@ -119,7 +128,10 @@ function associateModels(){
     Order.belongsTo( Customer );
 
     
-
+    //BRANCH
+    //associates branches and purchases.
+    Branch.hasMany( Purchase );
+    Purchase.belongsTo( Branch );
 
 
 

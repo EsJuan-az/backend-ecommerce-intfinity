@@ -1,5 +1,6 @@
 const boom = require('@hapi/boom');
 const { models: { Provider, Company } } = require('../libs/sequelize');
+const { Op } = require('sequelize');
 class ProviderService{
     static async findAll( company_id ){
         let providers = await Provider.findAll({
