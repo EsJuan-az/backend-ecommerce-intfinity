@@ -12,8 +12,9 @@ const CustomerData = require('./customer.model');
 const BranchData = require('./branch.model');
 const BranchProductData = require('./branch_product.model');
 const PurchaseData = require('./purchase.model');
-const PurchaseProductData = require('./purchase_product.model')
-
+const PurchaseProductData = require('./purchase_product.model');
+const RefundData = require('./refund.model');
+const RefundProductData = require('./refund_product.model');
 
 const models = [
     UserData,
@@ -30,6 +31,8 @@ const models = [
     BranchProductData,
     PurchaseData,
     PurchaseProductData,
+    RefundData,
+    RefundProductData,
 ];
 
 function associateModels(){
@@ -47,92 +50,102 @@ function associateModels(){
     const { model: BranchProduct } = BranchProductData;
     const { model: Purchase } = PurchaseData;
     const { model: PurchaseProduct } = PurchaseProductData;
+    const { model: Refund } = RefundData;
+    const { model: RefundProduct } = RefundProductData;
 
-    //COMPANY:
-    //Company has logo
+
+    //COMPANY AND IMAGE
     Company.hasOne( Image, {
         as: 'Logo',
         foreignKey: {
             allowNull: true,
         },
         });
-    //associates companies with everithing, Here are the 1-1 relations
-    [ User, Order, Product, Category, Customer, Branch, Purchase ].map( M => {
+    //ALL AND COMPANY
+    [ User, Order, Product, Category, Customer, Branch, Purchase, Refund ].map( M => {
         Company.hasMany( M );
         M.belongsTo( Company );
     });
-    //A N-1 relation occurs with Providers
+    //COMPANY AND PROVIDER
     Company.hasMany( Provider );
     Provider.belongsTo( Company );
     
 
-    //USER:
-    //User has profile pic
+    //USER AND IMAGE
     User.hasOne( Image, {
         as: 'ProfilePic',
         foreignKey: {
             allowNull: true,
         },
         });
-    //associates roles and users
+    //ROLE AND USER
     Role.hasMany( User );
     User.belongsTo( Role );
+    //USER AND PURCHASE
+    User.hasMany( Purchase, {
+        foreignKey: {
+            allowNull: false,
+        }
+    })
+    Purchase.belongsTo( User )
+    //USER AND REFUND
+    User.hasMany( Refund, {
+        foreignKey: {
+            allowNull: false,
+        }
+    })
+    Refund.belongsTo( User )
 
 
 
-
-    //PRODUCT:
-    //Product has images
+    //PRODUCT AND IMAGE
     Product.hasMany( Image, {
         as: 'Images',
         foreignKey: {
             allowNull: true,
         },
         });
-    //associates orders and products through the order_product table.
+    //ORDER AND PRODUCT
     Order.belongsToMany( Product, { through: OrderProduct  } );
     Product.belongsToMany( Order, { through: OrderProduct  } );
-    //associates purchases and products through the purchase_product table.
+    //PURCHASE AND PRODUCT
     Purchase.belongsToMany( Product, { through: PurchaseProduct } );
     Product.belongsToMany( Purchase, { through: PurchaseProduct } );
-    //associates products and  categories
+    //REFUND AND PRODUCT
+    Refund.belongsToMany( Product, { through: RefundProduct } );
+    Product.belongsToMany( Refund, { through: RefundProduct } );
+    //CATEGORY AND PRODUCT
     Category.hasMany( Product );
     Product.belongsTo( Category );
-    //associates products and providers
+    //PRODUCT AND PROVIDER
     Provider.hasMany( Product );
     Product.belongsTo( Provider )
-    //associates branches and products.
+    //PRODUCT AND BRANCH
     Branch.belongsToMany( Product, { through: BranchProduct } );
     Product.belongsToMany( Branch, { through: BranchProduct } );
-
-    
-
-
-
-
-    //CATEGORY:
-    //Category has image
+    //CATEGORY AND IMAGE
     Category.hasOne( Image, {
         as: 'CategoryPic',
         foreignKey: {
             allowNull: true,
         },
         });
-    
-
-
-
-    //CUSTOMER
-    //associates customers and orders.
+    //CUSTOMER AND ORDER
     Customer.hasMany( Order );
     Order.belongsTo( Customer );
 
     
-    //BRANCH
-    //associates branches and purchases.
+    //BRANCH AND PURCHASE
     Branch.hasMany( Purchase );
     Purchase.belongsTo( Branch );
 
+    //BRANCH AND USER
+    Branch.hasMany( User );
+    User.belongsTo( Branch );
+    
+    //PURCHASE AND REFUND
+    Purchase.hasOne( Refund );
+    Refund.belongsTo( Purchase );
 
 
 }
