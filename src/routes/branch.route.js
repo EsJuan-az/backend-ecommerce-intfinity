@@ -6,6 +6,16 @@ const {
     updateBranch,
     deleteBranch,
 } = require('../controllers/branch.controller');
+
+const {
+    s_findAllBranches,
+    s_findOneBranch,
+    s_createBranch,
+    s_updateBranch,
+    s_deleteBranch,
+} = require('../schemas/branch.schema');
+
+const { validatorHandler } = require('../middlewares/validation')
 const embedMethods = require('../helpers/embedMethods');
 const router = Router();
 
@@ -15,31 +25,31 @@ const branchRouter = {
         {
             method: 'get',
             path: '/',
-            middlewares: [],
+            middlewares: [ validatorHandler( s_findAllBranches ) ],
             controller: findAllBranches,
         },
         {
             method: 'get',
             path: '/:id',
-            middlewares: [],
+            middlewares: [ validatorHandler( s_findOneBranch ) ],
             controller: findOneBranch,
         },
         {
             method: 'post',
             path: '/',
-            middlewares: [],
+            middlewares: [ validatorHandler( s_createBranch ) ],
             controller: createBranch,
         },
         {
             method: 'put',
             path: '/:id',
-            middlewares: [],
+            middlewares: [ validatorHandler( s_updateBranch ) ],
             controller: updateBranch,
         },
         {
             method: 'delete',
             path: '/:id',
-            middlewares: [],
+            middlewares: [ validatorHandler( s_deleteBranch ) ],
             controller: deleteBranch,
         }
     ],
