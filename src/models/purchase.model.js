@@ -4,7 +4,7 @@ const {
     DataTypes,
 } = require('sequelize');
 
-const PURCHASE_TABLE = 'purchase';
+const PURCHASE_TABLE = 'purchases';
 const PurchaseSchema = {
     customer_email: {
         type: DataTypes.STRING,

@@ -1,5 +1,5 @@
 const { Model, DataTypes } = require('sequelize');
-const BRANCH_TABLE = 'branch';
+const BRANCH_TABLE = 'branches';
 const BranchSchema = {
     name: {
         type: DataTypes.STRING,

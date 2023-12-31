@@ -1,5 +1,5 @@
 const { Model, DataTypes } = require('sequelize');
-const PURCHASE_PRODUCT_TABLE = 'purchase_products';
+const PURCHASE_PRODUCT_TABLE = 'purchases_products';
 const PurchaseProductSchema = {
     stock: {
         type: DataTypes.INTEGER,
