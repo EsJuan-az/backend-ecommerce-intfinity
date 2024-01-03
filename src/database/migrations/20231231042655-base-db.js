@@ -42,7 +42,7 @@ module.exports = {
   async up (queryInterface, Sequelize) {
 
     const creationPromises = datapack.map( ({schema, table}) => {
-      queryInterface.createTable( table, schema );
+      return queryInterface.createTable( table, schema );
     });
     await Promise.all( creationPromises );
 
