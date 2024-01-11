@@ -12,6 +12,7 @@ const CustomerData = require('../../models/customer.model');
 const BranchData = require('../../models/branch.model');
 const PurchaseData = require('../../models/purchase.model');
 const RefundData = require('../../models/refund.model');
+const { DataTypes } = require('sequelize');
 
 const datapack = [
   CompanyData,
@@ -33,7 +34,29 @@ const datapack = [
 module.exports = {
   async up (queryInterface) {
     for( let { table, schema, model } of datapack ){
-      await queryInterface.createTable( table, schema, model.config() );
+      const {
+        indexes = [],
+        timestamps = false,
+      } = model.config();
+
+      //Si hay timestamps se añaden los campos de created y updated.
+      if( timestamps ){
+        schema.createdAt = {
+          type: DataTypes.DATE,
+          allowNull: false,
+        };
+        schema.updatedAt = {
+          type: DataTypes.DATE,
+          allowNull: false,
+        };
+      }
+      
+      //Añadimos los indices
+      await queryInterface.createTable( table, schema );
+      for( let { fields, ...options } of indexes ){
+        await queryInterface.addIndex( table, fields, options );
+      }
+
     }
   },
 
