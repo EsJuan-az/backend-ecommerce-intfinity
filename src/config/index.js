@@ -8,6 +8,6 @@ const config = {
     dbPort: process.env.PGPORT || '5432',
     dbUser: process.env.PGUSER,
     dbPassword: process.env.PGPASSWORD,
+    URI: process.env.CONNECTION_URI,
 };
-config.URI = `postgres:${encodeURIComponent( config.dbUser )}:${encodeURIComponent( config.dbPassword )}@${ config.dbHost }:${ config.dbPort }/${ config.dbName }`;
 module.exports = config;
