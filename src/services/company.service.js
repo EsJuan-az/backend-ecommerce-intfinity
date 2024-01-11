@@ -5,9 +5,9 @@ class CompanyService{
     static async findAll(){
         const company = await Company.findAll({
             where: {
-                active: true
+                active: true,
             },
-            include: ['Logo']
+            include: ['logo'],
         });
         return company;
     }
@@ -15,9 +15,9 @@ class CompanyService{
         const company = await Company.findOne( {
             where: {
                 id,
-                active: true
+                active: true,
             },
-            include: ['Logo']
+            include: ['logo'],
         });
         if( !company ){
             throw boom.notFound('company not found');
@@ -26,14 +26,14 @@ class CompanyService{
     }
     static async create( data ){
         const company = await Company.create( data, {
-            include: ['Logo'],
+            include: ['logo'],
         });
         return company;
     }
     static async update( id, data ){
         const company = await CompanyService.findOne( id );
         const newCompany = await company.update( data, {
-            include: ['Logo'],
+            include: ['logo'],
         });
         return newCompany;
     }
@@ -51,7 +51,7 @@ class CompanyService{
         });
         await Promise.all( unactiveCompanies.map( (p) => p.destroy() ) );
         //Finally we update 
-        const newCompany = await company.update({ active:false }, { include: ['Logo'] });
+        const newCompany = await company.update({ active:false }, { include: ['logo'] });
         return newCompany;
     }
     static async login( email, password ){
@@ -59,8 +59,8 @@ class CompanyService{
             where: {
                 email,
                 password,
-            }
-        })
+            },
+        });
         if( !company ){
             throw boom.forbidden('not valid authentication');
         }

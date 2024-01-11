@@ -1,20 +1,18 @@
-module.exports = {
+{
     "parserOptions": {
-      "ecmaVersion": "latest",
+      "ecmaVersion": "latest"
     },
     "extends": [
-      "eslint:recommended",
-      "prettier",
+      "eslint:recommended"
     ],
     "env": {
       "es6": true,
       "node": true,
-      "jest": true,
+      "jest": true
     },
     "rules": {
       "no-console": "warn",
       "semi": ["error", "always"],
-      "comma-dangle": [ "error", "always-multiline" ],
-    },
-};
-  
+      "comma-dangle": [ "error", "always-multiline" ]
+    }
+}
