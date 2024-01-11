@@ -4,11 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npm migration:run && node index.js",
-    "dev": "npm migration:run && nodemon index.js",
+    "start": "npm run migration:run && node index.js",
+    "dev": "npm run migration:run && nodemon index.js",
     "migration:generate": "sequelize-cli migration:generate --name",
     "migration:run": "sequelize-cli db:migrate",
-    "migration:revert": "sequelize-cli db:migrate:undo"
+    "migration:revert": "sequelize-cli db:migrate:undo",
+    "migration:reset": "sequelize-cli db:migrate:undo:all",
+    "migration:debug": "sequelize-cli db:migrate --debug",
+    "migration:file": "npx sequelize-cli db:migrate --to"
   },
   "repository": {
     "type": "git",

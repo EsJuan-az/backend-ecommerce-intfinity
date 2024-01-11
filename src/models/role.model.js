@@ -1,6 +1,12 @@
 const { Model, DataTypes } = require('sequelize');
 const ROLE_TABLE = 'roles';
 const RoleSchema = {
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true, // Hace que el ID sea autoincremental
+        allowNull: false,
+      },
     name: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -8,10 +14,15 @@ const RoleSchema = {
     permissions: {
         type: DataTypes.ENUM("A", "B", "C", "D", "Z"),
         allowNull: false,
-    }
+    },
 };
 
 class Role extends Model{
+    static associate({
+        User,
+    }){
+        this.hasMany( User, { as: 'users', foreignKey: 'roleId' });
+    }
     static config( sequelize ){
         return {
             sequelize,
