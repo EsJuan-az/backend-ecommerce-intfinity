@@ -11,7 +11,7 @@
     "migration:revert": "sequelize-cli db:migrate:undo",
     "migration:reset": "sequelize-cli db:migrate:undo:all",
     "migration:debug": "sequelize-cli db:migrate --debug",
-    "migration:file": "npx sequelize-cli db:migrate --to",
+    "migration:file": "sequelize-cli db:migrate --to",
     "build": "npm install && sequelize-cli db:migrate --env production"
   },
   "repository": {
@@ -37,6 +37,7 @@
   },
   "devDependencies": {
     "eslint": "^8.56.0",
-    "nodemon": "^3.0.2"
+    "nodemon": "^3.0.2",
+    "sequelize-cli": "^6.6.2"
   }
 }

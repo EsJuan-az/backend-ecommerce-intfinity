@@ -12,7 +12,6 @@ const CustomerData = require('../../models/customer.model');
 const BranchData = require('../../models/branch.model');
 const PurchaseData = require('../../models/purchase.model');
 const RefundData = require('../../models/refund.model');
-const { DataTypes } = require('sequelize');
 
 const datapack = [
   CompanyData,
@@ -33,18 +32,8 @@ const datapack = [
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface) {
-    for( let { table, schema } of datapack ){
-      await queryInterface.createTable( table, {
-        ...schema,
-        createdAt: {
-          type: DataTypes.DATE,
-          allowNull: false,
-        },
-        updatedAt: {
-          type: DataTypes.DATE,
-          allowNull: false,
-        },
-      });
+    for( let { table, schema, model } of datapack ){
+      await queryInterface.createTable( table, schema, model.config() );
     }
   },
 
