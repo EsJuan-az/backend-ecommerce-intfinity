@@ -72,11 +72,11 @@ class Customer extends Model{
             indexes: [
                 {
                     unique: true,
-                    fields: ['email', 'CompanyId', 'active'],
+                    fields: ['email', 'company_id', 'active'],
                 },
                 {
                     unique: true,
-                    fields: ['phone', 'CompanyId', 'active'],
+                    fields: ['phone', 'company_id', 'active'],
                 },
             ],
         };

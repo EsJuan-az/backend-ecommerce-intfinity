@@ -71,11 +71,11 @@ class Provider extends Model{
             indexes: [
                 {
                     unique: true,
-                    fields: ['email', 'active', 'CompanyId'],
+                    fields: ['email', 'active', 'company_id'],
                 },
                 {
                     unique: true,
-                    fields: ['phone', 'active', 'CompanyId'],
+                    fields: ['phone', 'active', 'company_id'],
                 },
             ],
         };
