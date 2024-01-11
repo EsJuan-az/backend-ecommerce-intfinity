@@ -18,7 +18,7 @@ class OrderService{
                 CompanyId: company_id,
                 active: true,
             },
-            include:[Product, Customer]
+            include:[Product, Customer],
         });
         if( !order ){
             throw boom.notFound('order not found');
@@ -30,7 +30,7 @@ class OrderService{
             ...data,
             CompanyId: company_id,
         }, {
-            include:[Product, Customer]
+            include:[Product, Customer],
         });
         return order;
     }
@@ -40,7 +40,7 @@ class OrderService{
             ...data,
             CompanyId: company_id,
         }, {
-            include:[Product, Customer]
+            include:[Product, Customer],
         });
         return newOrder;
     }

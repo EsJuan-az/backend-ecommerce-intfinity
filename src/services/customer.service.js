@@ -64,7 +64,7 @@ class CustomerService{
                 email,
                 password,
             },
-        })
+        });
         if( !user ){
             throw boom.forbidden('not valid authentication');
         }

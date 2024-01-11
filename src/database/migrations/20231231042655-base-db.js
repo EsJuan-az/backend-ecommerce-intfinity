@@ -32,7 +32,7 @@ const datapack = [
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface, Sequelize) {
+  async up (queryInterface) {
     for( let { table, schema } of datapack ){
       await queryInterface.createTable( table, {
         ...schema,
