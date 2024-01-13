@@ -68,7 +68,7 @@ class Order extends Model{
             foreignKey: 'orderId',
             otherKey: 'productId',
         });
-        this.belongsTo( Customer );
+        this.belongsTo( Customer, { as: 'customer' } );
     }
     static config( sequelize ){
         return {

@@ -1,5 +1,5 @@
 const boom = require('@hapi/boom');
-const { models: { Product, Purchase, User } } = require('../libs/sequelize');
+const { models: { Purchase } } = require('../libs/sequelize');
 class PurchaseService{
     static async findAll( company_id ){
         const purchase = await Purchase.findAll({
@@ -7,7 +7,7 @@ class PurchaseService{
                 CompanyId: company_id,
                 active: true,
             },
-            include:[Product, User],
+            include:[ 'products', 'responsible' ],
         });
         return purchase;
     }
@@ -18,7 +18,7 @@ class PurchaseService{
                 CompanyId: company_id,
                 active: true,
             },
-            include:[Product, User]
+            include:[ 'products', 'responsible' ],
         });
         if( !purchase ){
             throw boom.notFound('purchase not found');
@@ -30,7 +30,7 @@ class PurchaseService{
             ...data,
             CompanyId: company_id,
         }, {
-            include:[Product, User]
+            include:[ 'products', 'responsible' ],
         });
         return purchase;
     }
@@ -40,7 +40,7 @@ class PurchaseService{
             ...data,
             CompanyId: company_id,
         }, {
-            include:[Product, User]
+            include:[ 'products', 'responsible' ],
         });
         return newPurchase;
     }

@@ -1,8 +1,14 @@
 const joi = require('joi');
 
-const id = joi.number().integer();
-const stringRequired = joi.string().required();
-const stringOptional = joi.string().allow(null, '');
+const id = joi.number().integer().min(1);
+const URL = joi.string().uri();
+const alternative_text = joi.string();
+const productId = joi.number().integer().min(1);
+const categoryId = joi.number().integer().min(1);
+const userId = joi.number().integer().min(1);
+const companyId = joi.number().integer().min(1);
+
+
 
 module.exports = {
     s_findAllImages: {
@@ -17,9 +23,13 @@ module.exports = {
     s_createImage: {
         params: joi.object({}),
         body: joi.object({
-            URL: stringRequired,
-            alternative_text: stringOptional,
-            active: joi.forbidden(),
+            id: id.forbidden(),
+            URL: URL.required(),
+            alternative_text: alternative_text.optional(),
+            productId: productId.optional(),
+            companyId: companyId.optional(),
+            categoryId: categoryId.optional(),
+            userId: userId.optional(),
         }),
     },
     s_updateImage: {
@@ -27,9 +37,13 @@ module.exports = {
             id: id.required(),
         }),
         body: joi.object({
-            URL: stringOptional,
-            alternative_text: stringOptional,
-            active: joi.forbidden(),
+            id: id.forbidden(),
+            URL: URL.optional(),
+            alternative_text: alternative_text.optional(),
+            productId: productId.optional(),
+            companyId: companyId.optional(),
+            categoryId: categoryId.optional(),
+            userId: userId.optional(),
         }),
     },
     s_deleteImage: {

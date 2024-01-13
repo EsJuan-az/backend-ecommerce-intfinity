@@ -1,5 +1,5 @@
 const boom = require('@hapi/boom');
-const { models: { Provider, Company } } = require('../libs/sequelize');
+const { models: { Provider } } = require('../libs/sequelize');
 const { Op } = require('sequelize');
 class ProviderService{
     static async findAll( company_id ){
@@ -25,7 +25,7 @@ class ProviderService{
             throw boom.notFound('provider not found');
         }
 
-        return provider
+        return provider;
     }
     static async create( company_id, data ){
         const provider = await Provider.create( { ...data, CompanyId: company_id } );

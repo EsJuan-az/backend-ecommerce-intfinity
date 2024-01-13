@@ -60,6 +60,7 @@ class CompanyService{
                 email,
                 password,
             },
+            include: ['logo'],
         });
         if( !company ){
             throw boom.forbidden('not valid authentication');

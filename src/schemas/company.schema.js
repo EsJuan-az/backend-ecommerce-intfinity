@@ -1,14 +1,21 @@
 const joi = require('joi');
 
-const id = joi.number().integer();
-const stringRequired = joi.string().required();
-const stringOptional = joi.string().allow(null, '');
+const id = joi.number().integer().min(1);
+const holder = joi.string();
+const name = joi.string();
+const NIT = joi.string();
+const bank_account_type = joi.string().valid("CORRIENTE", "AHORROS");
+const social_reason = joi.string();
+const bank = joi.string();
+const bank_account_number = joi.string();
 const email = joi.string().email();
+const password = joi.string();
 const phone = joi.string().min(10).max(15);
+const active = joi.boolean();
 
 module.exports = {
     s_findAllModel: {
-        query: joi.object({}),
+        
     },
     s_findOneModel: {
         params: joi.object({
@@ -17,17 +24,18 @@ module.exports = {
     },
     s_createModel: {
         body: joi.object({
-            holder: stringRequired,
-            name: stringRequired,
-            NIT: stringRequired,
-            bank_account_type: stringRequired,
-            social_reason: stringRequired,
-            bank: stringRequired,
-            bank_account_number: stringRequired,
+            id: id.forbidden(),
+            holder: holder.required(),
+            name: name.required(),
+            NIT: NIT.required(),
+            bank_account_type: bank_account_type.required(),
+            social_reason: social_reason.required(),
+            bank: bank.required(),
+            bank_account_number: bank_account_number.required(),
             phone: phone.required(),
             email: email.required(),
-            password: stringRequired,
-            active: joi.forbidden(),
+            password: password.required(),
+            active: active.forbidden(),
         }),
     },
     s_updateModel: {
@@ -35,17 +43,18 @@ module.exports = {
             company_id: id.required(),
         }),
         body: joi.object({
-            holder: stringOptional,
-            name: stringOptional,
-            NIT: stringOptional,
-            bank_account_type: stringOptional,
-            social_reason: stringOptional,
-            bank: stringOptional,
-            bank_account_number: stringOptional,
-            phone: phone,
-            email: email,
-            password: stringOptional,
-            active: joi.forbidden(),
+            id: id.forbidden(),
+            holder: holder.optional(),
+            name: name.optional(),
+            NIT: NIT.optional(),
+            bank_account_type: bank_account_type.optional(),
+            social_reason: social_reason.optional(),
+            bank: bank.optional(),
+            bank_account_number: bank_account_number.optional(),
+            phone: phone.optional(),
+            email: email.optional(),
+            password: password.optional(),
+            active: active.forbidden(),
         }),
     },
     s_deleteModel: {

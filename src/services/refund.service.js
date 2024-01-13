@@ -1,5 +1,5 @@
 const boom = require('@hapi/boom');
-const { models: { Product, Refund, User } } = require('../libs/sequelize');
+const { models: { Refund } } = require('../libs/sequelize');
 class RefundService{
     static async findAll( company_id ){
         const refund = await Refund.findAll({
@@ -7,7 +7,7 @@ class RefundService{
                 CompanyId: company_id,
                 active: true,
             },
-            include:[Product, User],
+            include:['products', 'responsible'],
         });
         return refund;
     }
@@ -18,7 +18,7 @@ class RefundService{
                 CompanyId: company_id,
                 active: true,
             },
-            include:[Product, User]
+            include:['products', 'responsible'],
         });
         if( !refund ){
             throw boom.notFound('refund not found');
@@ -30,7 +30,7 @@ class RefundService{
             ...data,
             CompanyId: company_id,
         }, {
-            include:[Product, User]
+            include:['products', 'responsible'],
         });
         return refund;
     }
@@ -40,7 +40,7 @@ class RefundService{
             ...data,
             CompanyId: company_id,
         }, {
-            include:[Product, User]
+            include:['products', 'responsible'],
         });
         return newRefund;
     }

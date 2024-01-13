@@ -1,20 +1,23 @@
 const joi = require('joi');
 
-const id = joi.number().integer();
-const stringRequired = joi.string().required();
-const stringOptional = joi.string().allow(null, '');
-const booleanRequired = joi.boolean().required();
+const id = joi.number().integer().min(1);
+const email = joi.string().email();
+const password = joi.string();
+const name  = joi.string();
+const last_name = joi.string();
+const phone = joi.string().min(10).max(15);
+const active = joi.boolean();
+const companyId = joi.number.integer().min(1);
 
 module.exports = {
     s_findAllCustomers: {
         params: joi.object({
-            company_id: id.required(),
+            company_id: companyId.required(),
         }),
-        query: joi.object({}),
     },
     s_findOneCustomer: {
         params: joi.object({
-            company_id: id.required(),
+            company_id: companyId.required(),
             id: id.required(),
         }),
     },
@@ -23,31 +26,33 @@ module.exports = {
             company_id: id.required(),
         }),
         body: joi.object({
-            email: stringRequired,
-            password: stringRequired,
-            name: stringRequired,
-            last_name: stringRequired,
-            phone: stringRequired.min(10).max(15).unique(),
-            active: joi.forbidden(),
+            id: id.forbidden(),
+            email: email.required(),
+            password: password.required(),
+            name: name.required(),
+            last_name: last_name.required(),
+            phone: phone.required(),
+            active: active.forbidden(),
         }),
     },
     s_updateCustomer: {
         params: joi.object({
-            company_id: id.required(),
+            company_id: companyId.required(),
             id: id.required(),
         }),
         body: joi.object({
-            email: stringOptional,
-            password: stringOptional,
-            name: stringOptional,
-            last_name: stringOptional,
-            phone: stringOptional.min(10).max(15).unique(),
-            active: joi.forbidden(),
+            id: id.forbidden(),
+            email: email.optional(),
+            password: password.optional(),
+            name: name.optional(),
+            last_name: last_name.optional(),
+            phone: phone.optional(),
+            active: active.forbidden(),
         }),
     },
     s_deleteCustomer: {
         params: joi.object({
-            company_id: id.required(),
+            company_id: companyId.required(),
             id: id.required(),
         }),
     },
