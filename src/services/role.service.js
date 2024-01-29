@@ -33,7 +33,7 @@ class RoleService{
         return newRole;
     }
     static async delete( id ){
-        const role = await ImageService.findOne( id );
+        const role = await RoleService.findOne( id );
         const retRole = role.toJSON();
         await role.destroy();
         return retRole;

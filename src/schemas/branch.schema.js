@@ -1,21 +1,15 @@
 const joi = require('joi');
-
-const id = joi.number().integer();
-const name = joi.string().min(3);
-const direction = joi.string();
-const email = joi.string().email();
-const phone = joi.string().min(10).max(15);
+const { companyId, id, name, direction, city, email, phone, active } = require('./props');
 
 module.exports = {
     s_findAllBranches: {
-        query: joi.object({}),
         params: joi.object({
-            company_id: id.required(),
+            company_id: companyId.required(),
         }),
     },
     s_findOneBranch: {
         params: joi.object({
-            company_id: id.required(),
+            company_id: companyId.required(),
             id: id.required(),
         }),
     },
@@ -24,11 +18,13 @@ module.exports = {
             company_id: id.required(),
         }),
         body: joi.object({
+            id: id.forbidden(),
             name: name.required(),
             direction: direction.required(),
+            city: city.required(),
             email: email.required(),
             phone: phone.required(),
-            active: joi.forbidden(),
+            active: active,
         }),
     },
     s_updateBranch: {
@@ -37,11 +33,13 @@ module.exports = {
             id: id.required(),
         }),
         body: joi.object({
+            id: id.forbidden(),
             name: name.optional(),
             direction: direction.optional(),
+            city: city.optional(),
             email: email.optional(),
             phone: phone.optional(),
-            active: joi.forbidden(),
+            active: active,
         }),
     },
     s_deleteBranch: {

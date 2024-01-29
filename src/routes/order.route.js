@@ -6,7 +6,15 @@ const {
     updateOrder,
     deleteOrder,
 } = require('../controllers/order.controller');
+const {
+    s_findAllOrders,
+    s_findOneOrder,
+    s_createOrder,
+    s_updateOrder,
+    s_deleteOrder,
+} = require('../schemas/order.schema');
 const embedMethods = require('../helpers/embedMethods');
+const { validatorHandler } = require('../middlewares/validation');
 const router = Router();
 
 const orderRouter = {
@@ -15,35 +23,35 @@ const orderRouter = {
         {
             method: 'get',
             path: '/',
-            middlewares: [],
+            middlewares: [ validatorHandler( s_findAllOrders ) ],
             controller: findAllOrders,
         },
         {
             method: 'get',
             path: '/:id',
-            middlewares: [],
+            middlewares: [ validatorHandler( s_findOneOrder ) ],
             controller: findOneOrder,
         },
         {
             method: 'post',
             path: '/',
-            middlewares: [],
+            middlewares: [ validatorHandler( s_createOrder ) ],
             controller: createOrder,
         },
         {
             method: 'put',
             path: '/:id',
-            middlewares: [],
+            middlewares: [ validatorHandler( s_updateOrder ) ],
             controller: updateOrder,
         },
         {
             method: 'delete',
             path: '/:id',
-            middlewares: [],
+            middlewares: [ validatorHandler( s_deleteOrder ) ],
             controller: deleteOrder,
-        }
+        },
     ],
-}
+};
 
 embedMethods( orderRouter, router );
 

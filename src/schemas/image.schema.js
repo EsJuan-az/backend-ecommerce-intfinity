@@ -1,8 +1,5 @@
 const joi = require('joi');
-
-const id = joi.number().integer();
-const stringRequired = joi.string().required();
-const stringOptional = joi.string().allow(null, '');
+const { id, alternative_text, productId, companyId, categoryId, userId, URL } = require('./props');
 
 module.exports = {
     s_findAllImages: {
@@ -17,9 +14,13 @@ module.exports = {
     s_createImage: {
         params: joi.object({}),
         body: joi.object({
-            URL: stringRequired,
-            alternative_text: stringOptional,
-            active: joi.forbidden(),
+            id: id.forbidden(),
+            URL: URL.required(),
+            alternative_text: alternative_text.optional(),
+            productId: productId.optional(),
+            companyId: companyId.optional(),
+            categoryId: categoryId.optional(),
+            userId: userId.optional(),
         }),
     },
     s_updateImage: {
@@ -27,9 +28,13 @@ module.exports = {
             id: id.required(),
         }),
         body: joi.object({
-            URL: stringOptional,
-            alternative_text: stringOptional,
-            active: joi.forbidden(),
+            id: id.forbidden(),
+            URL: URL.optional(),
+            alternative_text: alternative_text.optional(),
+            productId: productId.optional(),
+            companyId: companyId.optional(),
+            categoryId: categoryId.optional(),
+            userId: userId.optional(),
         }),
     },
     s_deleteImage: {

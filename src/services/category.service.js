@@ -1,13 +1,13 @@
 const boom = require('@hapi/boom');
-const { models: { Category, Product } } = require('../libs/sequelize');
+const { models: { Category } } = require('../libs/sequelize');
 class CategoryService{
     static async findAll( company_id ){
         const category = await Category.findAll({
             where: {
-                CompanyId: company_id,
+                companyId: company_id,
                 active: true,
             },
-            include: [Product, 'CategoryPic'],
+            include: ['image'],
         });
         return category;
     }
@@ -15,10 +15,10 @@ class CategoryService{
         const category = await Category.findOne({
             where: {
                 id,
-                CompanyId: company_id,
+                companyId: company_id,
                 active: true,
             },
-            include: [Product, 'CategoryPic'],
+            include: ['image'],
         });
         if( !category ){
             throw boom.notFound('category not found');
@@ -28,9 +28,9 @@ class CategoryService{
     static async create( company_id, data ){
         const category = await Category.create( {
             ...data,
-            CompanyId: company_id,
+            companyId: company_id,
         }, {
-            include: [Product, 'CategoryPic'],
+            include: ['image'],
         });
         return category;
     }
@@ -38,9 +38,9 @@ class CategoryService{
         const category = await this.findOne( company_id, id );
         const newCategory = await category.update({
             ...data,
-            CompanyId: company_id,
+            companyId: company_id,
         }, {
-            include: [Product, 'CategoryPic'],
+            include: ['image'],
         });
         return newCategory;
     }

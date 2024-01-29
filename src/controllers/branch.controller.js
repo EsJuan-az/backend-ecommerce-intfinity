@@ -4,7 +4,7 @@ module.exports = {
         try{
             const {
                 params: {
-                    company_id
+                    company_id,
                 },
             } = req;
             const branches = await BranchService.findAll( company_id );

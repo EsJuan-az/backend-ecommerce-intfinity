@@ -11,7 +11,7 @@ function embedRoutes( app ){
         require('./customer.route'),
         //Dependen de branch
         require('./purchase.route'),
-        require('./refund.route')
+        require('./refund.route'),
     ];  
     routers.forEach( r => app.use('/api/company', r) );
     //Other API base routes, paralelos a Company.

@@ -4,9 +4,17 @@ const {
     findOneRole,
     createRole,
     updateRole,
-    deleteRole
+    deleteRole,
 } = require('../controllers/role.controller');
+const {
+    s_findAllRoles,
+    s_findOneRole,
+    s_createRole,
+    s_updateRole,
+    s_deleteRole,
+} = require('../schemas/role.schema');
 const embedMethods = require('../helpers/embedMethods');
+const { validatorHandler } = require('../middlewares/validation');
 const router = Router();
 
 const roleRouter = {
@@ -14,35 +22,35 @@ const roleRouter = {
         {
             method: 'get',
             path: '/',
-            middlewares: [],
+            middlewares: [ validatorHandler( s_findAllRoles ) ],
             controller: findAllRoles,
         },
         {
             method: 'get',
             path: '/:id',
-            middlewares: [],
+            middlewares: [ validatorHandler( s_findOneRole ) ],
             controller: findOneRole,
         },
         {
             method: 'post',
             path: '/',
-            middlewares: [],
+            middlewares: [ validatorHandler( s_createRole ) ],
             controller: createRole,
         },
         {
             method: 'put',
             path: '/:id',
-            middlewares: [],
+            middlewares: [ validatorHandler( s_updateRole ) ],
             controller: updateRole,
         },
         {
             method: 'delete',
             path: '/:id',
-            middlewares: [],
+            middlewares: [ validatorHandler( s_deleteRole ) ],
             controller: deleteRole,
-        }
+        },
     ],
-}
+};
 
 embedMethods( roleRouter, router );
 

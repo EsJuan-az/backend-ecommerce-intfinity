@@ -7,7 +7,16 @@ const {
     deleteCustomer,
     loginCustomer,
 } = require('../controllers/customer.controller');
+const {
+    s_findAllCustomers,
+    s_findOneCustomer,
+    s_createCustomer,
+    s_updateCustomer,
+    s_deleteCustomer,
+    s_loginCustomer,
+} = require('../schemas/customer.schema');
 const embedMethods = require('../helpers/embedMethods');
+const { validatorHandler } = require('../middlewares/validation');
 const router = Router();
 
 const customerRouter = {
@@ -16,41 +25,41 @@ const customerRouter = {
         {
             method: 'get',
             path: '/',
-            middlewares: [],
+            middlewares: [validatorHandler( s_findAllCustomers )],
             controller: findAllCustomers,
         },
         {
             method: 'get',
             path: '/:id',
-            middlewares: [],
+            middlewares: [validatorHandler( s_findOneCustomer )],
             controller: findOneCustomer,
         },
         {
             method: 'post',
             path: '/',
-            middlewares: [],
+            middlewares: [validatorHandler( s_createCustomer )],
             controller: createCustomer,
         },
         {
             method: 'put',
             path: '/:id',
-            middlewares: [],
+            middlewares: [validatorHandler( s_updateCustomer )],
             controller: updateCustomer,
         },
         {
             method: 'delete',
             path: '/:id',
-            middlewares: [],
+            middlewares: [validatorHandler( s_deleteCustomer )],
             controller: deleteCustomer,
         },
         {
             method: 'post',
             path: '/login',
-            middlewares: [],
+            middlewares: [validatorHandler( s_loginCustomer )],
             controller: loginCustomer,
-        }
+        },
     ],
-}
+};
 
 embedMethods( customerRouter, router );
 

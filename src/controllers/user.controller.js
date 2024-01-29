@@ -85,7 +85,7 @@ module.exports = {
                 body: {
                     email,
                     password,
-                }
+                },
             } = req;
             const user = await UserService.login( email, password);
             return res.status(202)
@@ -94,7 +94,7 @@ module.exports = {
                             statusCode: 202,
                         });
         }catch(err){
-            next(err)
+            next(err);
         }
-    }
-}
+    },
+};

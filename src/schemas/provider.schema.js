@@ -1,57 +1,52 @@
 const joi = require('joi');
+const { companyId, id, name, NIT, direction, description, phone, email, active } = require('./props');
 
-const id = joi.number().integer();
-const stringRequired = joi.string().required();
-const stringOptional = joi.string().allow(null, '');
-const email = joi.string().email();
-const phone = joi.string().min(10).max(15);
-const booleanRequired = joi.boolean().required();
 
 module.exports = {
     s_findAllProviders: {
         params: joi.object({
-            company_id: id.required(),
+            company_id: companyId.required(),
         }),
         query: joi.object({}),
     },
     s_findOneProvider: {
         params: joi.object({
-            company_id: id.required(),
+            company_id: companyId.required(),
             id: id.required(),
         }),
     },
     s_createProvider: {
         params: joi.object({
-            company_id: id.required(),
+            company_id: companyId.required(),
         }),
         body: joi.object({
-            name: stringRequired,
-            description: stringOptional,
-            NIT: stringRequired,
-            direction: stringRequired,
+            name: name.required(),
+            description: description.optional(),
+            NIT: NIT.required(),
+            direction: direction.required(),
             phone: phone.required(),
             email: email.required(),
-            active: joi.forbidden(),
+            active: active,
         }),
     },
     s_updateProvider: {
         params: joi.object({
-            company_id: id.required(),
+            company_id: companyId.required(),
             id: id.required(),
         }),
         body: joi.object({
-            name: stringOptional,
-            description: stringOptional,
-            NIT: stringOptional,
-            direction: stringOptional,
-            phone: phone,
-            email: email,
-            active: joi.forbidden(),
+            name: name.optional(),
+            description: description.optional(),
+            NIT: NIT.optional(),
+            direction: direction.optional(),
+            phone: phone.optional(),
+            email: email.optional(),
+            active: active,
         }),
     },
     s_deleteProvider: {
         params: joi.object({
-            company_id: id.required(),
+            company_id: companyId.required(),
             id: id.required(),
         }),
     },

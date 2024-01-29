@@ -1,5 +1,6 @@
 const boom = require('@hapi/boom');
 const { models: { User, Role } } = require('../libs/sequelize');
+const { Op } = require('sequelize');
 
 class UserService{
     static async findAll(){
@@ -7,7 +8,7 @@ class UserService{
             where: {
                 active: true,
             },
-            include: ['ProfilePic', Role]
+            include: ['profile', 'role'],
         });
         return users;
     }
@@ -17,7 +18,7 @@ class UserService{
                 id,
                 active: true,
             },
-            include: ['ProfilePic', Role],
+            include: ['profile', 'role'],
         });
         if( !user ){
             throw boom.notFound('user not found');
@@ -28,7 +29,7 @@ class UserService{
         const user = await User.create( {
             ...data,
         }, {
-            include: ['ProfilePic', Role],
+            include: ['profile', 'role'],
         });
         return user;
     }
@@ -37,7 +38,7 @@ class UserService{
         const newUser = await user.update({
             ...data,
         }, {
-            include: ['ProfilePic', Role],
+            include: ['profile', 'role'],
         });
         return newUser;
     }
@@ -55,7 +56,7 @@ class UserService{
         });
         await Promise.all( unactiveUsers.map( (u) => u.destroy() ) );
         //Finally we update 
-        const newUser = await user.update({ active: false }, { include: ['ProfilePic', Role] });
+        const newUser = await user.update({ active: false }, { include: ['profile', 'role'] });
         return newUser;
     }
     static async login( email, password ){
@@ -64,8 +65,8 @@ class UserService{
                 email,
                 password,
             },
-            include: ['ProfilePic', Role],
-        })
+            include: ['profile', 'role'],
+        });
         if( !user ){
             throw boom.forbidden('not valid authentication');
         }

@@ -1,56 +1,58 @@
 const joi = require('joi');
-
-const id = joi.number().integer();
-const stringRequired = joi.string().required();
-const stringOptional = joi.string().allow(null, '');
-const email = joi.string().email();
-const phone = joi.string().min(10).max(15);
+const { id, holder, name, NIT, bank_account_type, social_reason, bank, phone, email, password, active, bank_account_number } = require('./props');
 
 module.exports = {
-    s_findAllModel: {
-        query: joi.object({}),
+    s_findAllCompanies: {
+        
     },
-    s_findOneModel: {
+    s_findOneCompany: {
         params: joi.object({
             company_id: id.required(),
         }),
     },
-    s_createModel: {
+    s_createCompany: {
         body: joi.object({
-            holder: stringRequired,
-            name: stringRequired,
-            NIT: stringRequired,
-            bank_account_type: stringRequired,
-            social_reason: stringRequired,
-            bank: stringRequired,
-            bank_account_number: stringRequired,
+            holder: holder.required(),
+            name: name.required(),
+            NIT: NIT.required(),
+            bank_account_type: bank_account_type.required(),
+            social_reason: social_reason.required(),
+            bank: bank.required(),
+            bank_account_number: bank_account_number.required(),
             phone: phone.required(),
             email: email.required(),
-            password: stringRequired,
-            active: joi.forbidden(),
+            password: password.required(),
+            active: active,
         }),
     },
-    s_updateModel: {
+    s_updateCompany: {
         params: joi.object({
             company_id: id.required(),
         }),
         body: joi.object({
-            holder: stringOptional,
-            name: stringOptional,
-            NIT: stringOptional,
-            bank_account_type: stringOptional,
-            social_reason: stringOptional,
-            bank: stringOptional,
-            bank_account_number: stringOptional,
-            phone: phone,
-            email: email,
-            password: stringOptional,
-            active: joi.forbidden(),
+            id: id.forbidden(),
+            holder: holder.optional(),
+            name: name.optional(),
+            NIT: NIT.optional(),
+            bank_account_type: bank_account_type.optional(),
+            social_reason: social_reason.optional(),
+            bank: bank.optional(),
+            bank_account_number: bank_account_number.optional(),
+            phone: phone.optional(),
+            email: email.optional(),
+            password: password.optional(),
+            active: active,
         }),
     },
-    s_deleteModel: {
+    s_deleteCompany: {
         params: joi.object({
             company_id: id.required(),
+        }),
+    },
+    s_loginCompany: {
+        body: joi.object({
+            email: email.required(),
+            password: password.required(),
         }),
     },
 };

@@ -20,7 +20,7 @@ const CompanySchema = {
         allowNull: false,
     },
     bank_account_type: {
-        type: DataTypes.STRING,
+        type: DataTypes.ENUM("CORRIENTES", "AHORROS"),
         allowNull: false,
     },
     social_reason: {

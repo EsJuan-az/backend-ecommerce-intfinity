@@ -6,7 +6,7 @@ class CustomerService{
         const customers = await Customer.findAll({
             where: {
                 active: true,
-                CompanyId: company_id,
+                companyId: company_id,
             },
         });
         return customers;
@@ -16,7 +16,7 @@ class CustomerService{
             where: {
                 id,
                 active: true,
-                CompanyId: company_id,
+                companyId: company_id,
             },
         });
         if( !customer ){
@@ -27,7 +27,7 @@ class CustomerService{
     static async create( company_id, data ){
         const customer = await Customer.create( {
             ...data,
-            CompanyId: company_id,
+            companyId: company_id,
         });
         return customer;
     }
@@ -35,7 +35,7 @@ class CustomerService{
         const customer = await CustomerService.findOne( company_id, id );
         const newCustomer = await customer.update({
             ...data,
-            CompanyId: company_id,
+            companyId: company_id,
         });
         return newCustomer;
     }
@@ -49,7 +49,7 @@ class CustomerService{
                   { phone: customer.phone },  
                 ],
                 active: false,
-                CompanyId: company_id,
+                companyId: company_id,
             },
         });
         await Promise.all( unactiveCustomers.map( (u) => u.destroy() ) );
@@ -60,7 +60,7 @@ class CustomerService{
     static async login( company_id, email, password ){
         const user = await Customer.findOne({
             where: {
-                CompanyId: company_id,
+                companyId: company_id,
                 email,
                 password,
             },

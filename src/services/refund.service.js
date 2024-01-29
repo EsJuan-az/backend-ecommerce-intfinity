@@ -1,13 +1,13 @@
 const boom = require('@hapi/boom');
-const { models: { Product, Refund, User } } = require('../libs/sequelize');
+const { models: { Refund } } = require('../libs/sequelize');
 class RefundService{
     static async findAll( company_id ){
         const refund = await Refund.findAll({
             where: {
-                CompanyId: company_id,
+                companyId: company_id,
                 active: true,
             },
-            include:[Product, User],
+            include:['products', 'responsible'],
         });
         return refund;
     }
@@ -15,10 +15,10 @@ class RefundService{
         const refund = await Refund.findOne({
             where: {
                 id,
-                CompanyId: company_id,
+                companyId: company_id,
                 active: true,
             },
-            include:[Product, User]
+            include:['products', 'responsible'],
         });
         if( !refund ){
             throw boom.notFound('refund not found');
@@ -28,9 +28,9 @@ class RefundService{
     static async create( company_id, data){
         const refund = await Refund.create( {
             ...data,
-            CompanyId: company_id,
+            companyId: company_id,
         }, {
-            include:[Product, User]
+            include:['products', 'responsible'],
         });
         return refund;
     }
@@ -38,9 +38,9 @@ class RefundService{
         const refund = await RefundService.findOne( company_id, id );
         const newRefund = await refund.update({
             ...data,
-            CompanyId: company_id,
+            companyId: company_id,
         }, {
-            include:[Product, User]
+            include:['products', 'responsible'],
         });
         return newRefund;
     }

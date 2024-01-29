@@ -83,7 +83,7 @@ module.exports = {
                 body: {
                     email,
                     password,
-                }
+                },
             } = req;
             const company = await CompanyService.login(email, password);
             return res.status(202)
