@@ -1,12 +1,5 @@
 const joi = require('joi');
-
-const id = joi.number().integer().min(1);
-const status = joi.string().valid("EN ESPERA", "CONFIRMADO", "ENTREGADO");
-const bill_reference = joi.string();
-const direction = joi.string();
-const active = joi.boolean();
-const companyId = joi.number().integer().min(1);
-const customerId = joi.number().integer().min(1);
+const { companyId, id, status, bill_reference, direction, active, customerId } = require('./props');
 
 
 module.exports = {
@@ -30,7 +23,7 @@ module.exports = {
             status: status.optional(),
             bill_reference: bill_reference.optional(),
             direction: direction.required(),
-            active: active.forbidden(),
+            active: active,
             companyId: companyId.required(),
             customerId: customerId.required(),
         }),
@@ -45,7 +38,7 @@ module.exports = {
             status: status.optional(),
             bill_reference: bill_reference.optional(),
             direction: direction.required(),
-            active: active.forbidden(),
+            active: active,
             companyId: companyId.required(),
             customerId: customerId.required(),
         }),

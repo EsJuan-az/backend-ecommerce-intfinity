@@ -15,7 +15,7 @@ const {
     s_deleteBranch,
 } = require('../schemas/branch.schema');
 
-const { validatorHandler } = require('../middlewares/validation')
+const { validatorHandler } = require('../middlewares/validation');
 const embedMethods = require('../helpers/embedMethods');
 const router = Router();
 
@@ -51,9 +51,9 @@ const branchRouter = {
             path: '/:id',
             middlewares: [ validatorHandler( s_deleteBranch ) ],
             controller: deleteBranch,
-        }
+        },
     ],
-}
+};
 
 embedMethods( branchRouter, router );
 

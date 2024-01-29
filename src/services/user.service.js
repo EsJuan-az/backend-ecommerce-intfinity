@@ -65,7 +65,7 @@ class UserService{
                 email,
                 password,
             },
-            include: ['ProfilePic', Role],
+            include: ['profile', 'role'],
         });
         if( !user ){
             throw boom.forbidden('not valid authentication');

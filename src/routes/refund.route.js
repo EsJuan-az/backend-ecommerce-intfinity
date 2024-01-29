@@ -6,7 +6,15 @@ const {
     updateRefund,
     deleteRefund,
 } = require('../controllers/refund.controller');
+const {
+    s_findAllRefunds,
+    s_findOneRefund,
+    s_createRefund,
+    s_updateRefund,
+    s_deleteRefund,
+} = require('../schemas/refund.schema');
 const embedMethods = require('../helpers/embedMethods');
+const { validatorHandler } = require('../middlewares/validation');
 const router = Router();
 
 const purchaseRouter = {
@@ -15,35 +23,35 @@ const purchaseRouter = {
         {
             method: 'get',
             path: '/',
-            middlewares: [],
+            middlewares: [ validatorHandler(s_findAllRefunds) ],
             controller: findAllRefunds,
         },
         {
             method: 'get',
             path: '/:id',
-            middlewares: [],
+            middlewares: [ validatorHandler(s_findOneRefund) ],
             controller: findOneRefund,
         },
         {
             method: 'post',
             path: '/',
-            middlewares: [],
+            middlewares: [ validatorHandler(s_createRefund) ],
             controller: createRefund,
         },
         {
             method: 'put',
             path: '/:id',
-            middlewares: [],
+            middlewares: [ validatorHandler(s_updateRefund) ],
             controller: updateRefund,
         },
         {
             method: 'delete',
             path: '/:id',
-            middlewares: [],
+            middlewares: [ validatorHandler(s_deleteRefund) ],
             controller: deleteRefund,
-        }
+        },
     ],
-}
+};
 
 embedMethods( purchaseRouter, router );
 

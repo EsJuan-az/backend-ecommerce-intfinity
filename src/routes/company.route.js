@@ -5,9 +5,18 @@ const {
     createCompany,
     updateCompany,
     deleteCompany,
-    loginCompany
+    loginCompany,
 } = require('../controllers/company.controller');
+const {
+    s_findAllCompanies,
+    s_findOneCompany,
+    s_createCompany,
+    s_updateCompany,
+    s_deleteCompany,
+    s_loginCompany,
+} = require('../schemas/company.schema');
 const embedMethods = require('../helpers/embedMethods');
+const { validatorHandler } = require('../middlewares/validation');
 const router = Router();
 
 const companyRouter = {
@@ -15,41 +24,41 @@ const companyRouter = {
         {
             method: 'get',
             path: '/',
-            middlewares: [],
+            middlewares: [ validatorHandler(s_findAllCompanies) ],
             controller: findAllCompanies,
         },
         {
             method: 'get',
             path: '/:company_id',
-            middlewares: [],
+            middlewares: [ validatorHandler(s_findOneCompany) ],
             controller: findOneCompany,
         },
         {
             method: 'post',
             path: '/',
-            middlewares: [],
+            middlewares: [ validatorHandler(s_createCompany) ],
             controller: createCompany,
         },
         {
             method: 'put',
             path: '/:company_id',
-            middlewares: [],
+            middlewares: [ validatorHandler(s_updateCompany) ],
             controller: updateCompany,
         },
         {
             method: 'delete',
             path: '/:company_id',
-            middlewares: [],
+            middlewares: [ validatorHandler(s_deleteCompany) ],
             controller: deleteCompany,
         },
         {
             method: 'post',
             path: '/login',
-            middlewares: [],
+            middlewares: [ validatorHandler(s_loginCompany) ],
             controller: loginCompany,
-        }
+        },
     ],
-}
+};
 
 embedMethods( companyRouter, router );
 

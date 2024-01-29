@@ -4,7 +4,7 @@ class BranchService{
     static async findAll( company_id ){
         const branch = await Branch.findAll({
             where: {
-                CompanyId: company_id,
+                companyId: company_id,
                 active: true,
             },
         });
@@ -14,7 +14,7 @@ class BranchService{
         const branch = await Branch.findOne({
             where: {
                 id,
-                CompanyId: company_id,
+                companyId: company_id,
                 active: true,
             },
         });
@@ -26,7 +26,7 @@ class BranchService{
     static async create( company_id, data ){
         const branch = await Branch.create( {
             ...data,
-            CompanyId: company_id,
+            companyId: company_id,
         });
         return branch;
     }
@@ -34,7 +34,7 @@ class BranchService{
         const branch = await BranchService.findOne( company_id, id );
         const newBranch = await branch.update({
             ...data,
-            CompanyId: company_id,
+            companyId: company_id,
         });
         return newBranch;
     }

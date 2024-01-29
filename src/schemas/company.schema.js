@@ -1,30 +1,17 @@
 const joi = require('joi');
-
-const id = joi.number().integer().min(1);
-const holder = joi.string();
-const name = joi.string();
-const NIT = joi.string();
-const bank_account_type = joi.string().valid("CORRIENTE", "AHORROS");
-const social_reason = joi.string();
-const bank = joi.string();
-const bank_account_number = joi.string();
-const email = joi.string().email();
-const password = joi.string();
-const phone = joi.string().min(10).max(15);
-const active = joi.boolean();
+const { id, holder, name, NIT, bank_account_type, social_reason, bank, phone, email, password, active, bank_account_number } = require('./props');
 
 module.exports = {
-    s_findAllModel: {
+    s_findAllCompanies: {
         
     },
-    s_findOneModel: {
+    s_findOneCompany: {
         params: joi.object({
             company_id: id.required(),
         }),
     },
-    s_createModel: {
+    s_createCompany: {
         body: joi.object({
-            id: id.forbidden(),
             holder: holder.required(),
             name: name.required(),
             NIT: NIT.required(),
@@ -35,10 +22,10 @@ module.exports = {
             phone: phone.required(),
             email: email.required(),
             password: password.required(),
-            active: active.forbidden(),
+            active: active,
         }),
     },
-    s_updateModel: {
+    s_updateCompany: {
         params: joi.object({
             company_id: id.required(),
         }),
@@ -54,12 +41,18 @@ module.exports = {
             phone: phone.optional(),
             email: email.optional(),
             password: password.optional(),
-            active: active.forbidden(),
+            active: active,
         }),
     },
-    s_deleteModel: {
+    s_deleteCompany: {
         params: joi.object({
             company_id: id.required(),
+        }),
+    },
+    s_loginCompany: {
+        body: joi.object({
+            email: email.required(),
+            password: password.required(),
         }),
     },
 };

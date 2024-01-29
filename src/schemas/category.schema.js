@@ -1,9 +1,6 @@
 const joi = require('joi');
+const { companyId, id, name, active } = require('./props');
 
-const id = joi.number().integer().min(1);
-const name = joi.string();
-const active = joi.boolean();
-const companyId = joi.number().integer().min(1);
 module.exports = {
     s_findAllCategories: {
 
@@ -19,7 +16,7 @@ module.exports = {
             id: id.forbidden,
             name: name.required(),
             companyId: companyId.required(),
-            active: active.forbidden(),
+            active: active,
         }),
     },
     s_updateCategory: {
@@ -31,7 +28,7 @@ module.exports = {
             id: id.forbidden,
             name: name.optional(),
             companyId: companyId.optional(),
-            active: active.forbidden(),
+            active: active,
         }),
     },
     s_deleteCategory: {

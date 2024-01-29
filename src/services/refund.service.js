@@ -4,7 +4,7 @@ class RefundService{
     static async findAll( company_id ){
         const refund = await Refund.findAll({
             where: {
-                CompanyId: company_id,
+                companyId: company_id,
                 active: true,
             },
             include:['products', 'responsible'],
@@ -15,7 +15,7 @@ class RefundService{
         const refund = await Refund.findOne({
             where: {
                 id,
-                CompanyId: company_id,
+                companyId: company_id,
                 active: true,
             },
             include:['products', 'responsible'],
@@ -28,7 +28,7 @@ class RefundService{
     static async create( company_id, data){
         const refund = await Refund.create( {
             ...data,
-            CompanyId: company_id,
+            companyId: company_id,
         }, {
             include:['products', 'responsible'],
         });
@@ -38,7 +38,7 @@ class RefundService{
         const refund = await RefundService.findOne( company_id, id );
         const newRefund = await refund.update({
             ...data,
-            CompanyId: company_id,
+            companyId: company_id,
         }, {
             include:['products', 'responsible'],
         });

@@ -3,7 +3,7 @@ const express = require('express');
 const port = 5051;
 //Extern code
 const { embedErrorMiddlewares } = require('./middlewares');
-const embedRoutes = require('./routes')
+const embedRoutes = require('./routes');
 
 
 class Server{

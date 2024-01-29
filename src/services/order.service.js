@@ -4,7 +4,7 @@ class OrderService{
     static async findAll( company_id ){
         const order = await Order.findAll({
             where: {
-                CompanyId: company_id,
+                companyId: company_id,
                 active: true,
             },
             include:['products', 'customer'],
@@ -15,7 +15,7 @@ class OrderService{
         const order = await Order.findOne({
             where: {
                 id,
-                CompanyId: company_id,
+                companyId: company_id,
                 active: true,
             },
             include:['products', 'customer'],
@@ -28,7 +28,7 @@ class OrderService{
     static async create( company_id, data){
         const order = await Order.create( {
             ...data,
-            CompanyId: company_id,
+            companyId: company_id,
         }, {
             include:['products', 'customer'],
         });
@@ -38,7 +38,7 @@ class OrderService{
         const order = await OrderService.findOne( company_id, id );
         const newOrder = await order.update({
             ...data,
-            CompanyId: company_id,
+            companyId: company_id,
         }, {
             include:['products', 'customer'],
         });

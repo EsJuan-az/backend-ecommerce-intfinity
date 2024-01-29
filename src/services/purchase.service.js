@@ -4,7 +4,7 @@ class PurchaseService{
     static async findAll( company_id ){
         const purchase = await Purchase.findAll({
             where: {
-                CompanyId: company_id,
+                companyId: company_id,
                 active: true,
             },
             include:[ 'products', 'responsible' ],
@@ -15,7 +15,7 @@ class PurchaseService{
         const purchase = await Purchase.findOne({
             where: {
                 id,
-                CompanyId: company_id,
+                companyId: company_id,
                 active: true,
             },
             include:[ 'products', 'responsible' ],
@@ -28,7 +28,7 @@ class PurchaseService{
     static async create( company_id, data){
         const purchase = await Purchase.create( {
             ...data,
-            CompanyId: company_id,
+            companyId: company_id,
         }, {
             include:[ 'products', 'responsible' ],
         });
@@ -38,7 +38,7 @@ class PurchaseService{
         const purchase = await PurchaseService.findOne( company_id, id );
         const newPurchase = await purchase.update({
             ...data,
-            CompanyId: company_id,
+            companyId: company_id,
         }, {
             include:[ 'products', 'responsible' ],
         });

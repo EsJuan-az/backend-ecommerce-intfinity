@@ -1,46 +1,33 @@
 const joi = require('joi');
-
-const id = joi.number().integer();
-const stringRequired = joi.string().required();
-const enumPermissions = joi.string().valid('A', 'B', 'C', 'D', 'Z').required();
+const { name, permissions, active, id } = require('./props');
 
 module.exports = {
-    s_findAllRoles: {
-        params: joi.object({
-            company_id: id.required(),
-        }),
-        query: joi.object({}),
-    },
+    s_findAllRoles: {},
     s_findOneRole: {
         params: joi.object({
-            company_id: id.required(),
             id: id.required(),
         }),
     },
     s_createRole: {
-        params: joi.object({
-            company_id: id.required(),
-        }),
+        params: joi.object({}),
         body: joi.object({
-            name: stringRequired,
-            permissions: enumPermissions,
-            active: joi.forbidden(),
+            name: name.required(),
+            permissions: permissions.required(),
+            active: active,
         }),
     },
     s_updateRole: {
         params: joi.object({
-            company_id: id.required(),
             id: id.required(),
         }),
         body: joi.object({
-            name: stringRequired,
-            permissions: enumPermissions,
+            name: name.optional(),
+            permissions: permissions.optional(),
             active: joi.forbidden(),
         }),
     },
     s_deleteRole: {
         params: joi.object({
-            company_id: id.required(),
             id: id.required(),
         }),
     },

@@ -4,7 +4,7 @@ class CategoryService{
     static async findAll( company_id ){
         const category = await Category.findAll({
             where: {
-                CompanyId: company_id,
+                companyId: company_id,
                 active: true,
             },
             include: ['image'],
@@ -15,7 +15,7 @@ class CategoryService{
         const category = await Category.findOne({
             where: {
                 id,
-                CompanyId: company_id,
+                companyId: company_id,
                 active: true,
             },
             include: ['image'],
@@ -28,7 +28,7 @@ class CategoryService{
     static async create( company_id, data ){
         const category = await Category.create( {
             ...data,
-            CompanyId: company_id,
+            companyId: company_id,
         }, {
             include: ['image'],
         });
@@ -38,7 +38,7 @@ class CategoryService{
         const category = await this.findOne( company_id, id );
         const newCategory = await category.update({
             ...data,
-            CompanyId: company_id,
+            companyId: company_id,
         }, {
             include: ['image'],
         });

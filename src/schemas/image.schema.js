@@ -1,14 +1,5 @@
 const joi = require('joi');
-
-const id = joi.number().integer().min(1);
-const URL = joi.string().uri();
-const alternative_text = joi.string();
-const productId = joi.number().integer().min(1);
-const categoryId = joi.number().integer().min(1);
-const userId = joi.number().integer().min(1);
-const companyId = joi.number().integer().min(1);
-
-
+const { id, alternative_text, productId, companyId, categoryId, userId, URL } = require('./props');
 
 module.exports = {
     s_findAllImages: {

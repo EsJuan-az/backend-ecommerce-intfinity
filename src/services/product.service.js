@@ -4,7 +4,7 @@ class ProductService{
     static async findAll( company_id ){
         const products = await Product.findAll({
             where: {
-                CompanyId: company_id,
+                companyId: company_id,
                 active: true,
             },
             include: ['category', 'images'],
@@ -15,7 +15,7 @@ class ProductService{
         const product = await Product.findOne({
             where: {
                 id,
-                CompanyId: company_id,
+                companyId: company_id,
                 active: true,
             },
             include: ['category', 'images'],
@@ -28,7 +28,7 @@ class ProductService{
     static async create( company_id, data ){
         const product = await Product.create( {
             ...data,
-            CompanyId: company_id,
+            companyId: company_id,
         }, {
             include: ['category', 'images'],
         });
@@ -38,7 +38,7 @@ class ProductService{
         const product = await ProductService.findOne( company_id, id );
         const newProduct = await product.update({
             ...data,
-            CompanyId: company_id,
+            companyId: company_id,
         }, {
             include: ['category', 'images'],
         });

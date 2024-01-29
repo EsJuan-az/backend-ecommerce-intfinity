@@ -5,7 +5,7 @@ class ProviderService{
     static async findAll( company_id ){
         let providers = await Provider.findAll({
             where: {
-                CompanyId: company_id,
+                companyId: company_id,
                 active: true,
             },
         });
@@ -17,7 +17,7 @@ class ProviderService{
             where: {
                 id: id,
                 active: true,
-                CompanyId: company_id,
+                companyId: company_id,
             },
         });
 
@@ -36,7 +36,7 @@ class ProviderService{
         
         const newProvider = await provider.update({
             ...data,
-            CompanyId: company_id,
+            companyId: company_id,
         });
         return newProvider;
     }
@@ -50,7 +50,7 @@ class ProviderService{
                   { phone: provider.phone },  
                 ],
                 active: false,
-                CompanyId: company_id,
+                companyId: company_id,
             },
         });
         await Promise.all( unactiveProviders.map( (p) => p.destroy() ) );

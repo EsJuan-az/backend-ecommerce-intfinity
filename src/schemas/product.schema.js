@@ -1,16 +1,7 @@
 const joi = require('joi');
+const { companyId, id, name, color, size, brand, price, refer_id, active, categoryId, providerId } = require('./props');
 
-const id = joi.number().integer().min(1);
-const companyId = joi.number().integer().min(1);
-const name = joi.string();
-const color = joi.string();
-const size = joi.string();
-const brand = joi.string();
-const price = joi.number().float();
-const refer_id = joi.string();
-const active = joi.boolean();
-const categoryId = joi.number().integer().min(1);
-const providerId = joi.number().integer().min(1);
+
 
 
 
@@ -39,7 +30,7 @@ module.exports = {
             brand: brand.optional(),
             price: price.required(),
             refer_id: refer_id.optional(),
-            active: active.forbidden(),
+            active: active,
             companyId: companyId.required(),
             categoryId: categoryId.required(),
             providerId: providerId.required(),
@@ -58,7 +49,7 @@ module.exports = {
             brand: brand.optional(),
             price: price.optional(),
             refer_id: refer_id.optional(),
-            active: active.forbidden(),
+            active: active,
             companyId: companyId.optional(),
             categoryId: categoryId.optional(),
             providerId: providerId.optional(),

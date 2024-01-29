@@ -1,13 +1,5 @@
 const joi = require('joi');
-
-const id = joi.number().integer().min(1);
-const email = joi.string().email();
-const password = joi.string();
-const name  = joi.string();
-const last_name = joi.string();
-const phone = joi.string().min(10).max(15);
-const active = joi.boolean();
-const companyId = joi.number.integer().min(1);
+const { companyId, id, email, password, name, last_name, phone, active } = require('./props');
 
 module.exports = {
     s_findAllCustomers: {
@@ -32,7 +24,7 @@ module.exports = {
             name: name.required(),
             last_name: last_name.required(),
             phone: phone.required(),
-            active: active.forbidden(),
+            active: active,
         }),
     },
     s_updateCustomer: {
@@ -47,13 +39,22 @@ module.exports = {
             name: name.optional(),
             last_name: last_name.optional(),
             phone: phone.optional(),
-            active: active.forbidden(),
+            active: active,
         }),
     },
     s_deleteCustomer: {
         params: joi.object({
             company_id: companyId.required(),
             id: id.required(),
+        }),
+    },
+    s_loginCustomer: {
+        params: joi.object({
+            company_id: companyId.required(),
+        }),
+        body: joi.object({
+            email: email.required(),
+            password: password.required(),
         }),
     },
 };

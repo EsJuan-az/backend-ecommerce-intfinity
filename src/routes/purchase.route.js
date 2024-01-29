@@ -6,7 +6,15 @@ const {
     updatePurchase,
     deletePurchase,
 } = require('../controllers/purchase.controller');
+const {
+    s_findAllPurchases,
+    s_findOnePurchase,
+    s_createPurchase,
+    s_updatePurchase,
+    s_deletePurchase,
+} = require('../schemas/purchase.schema');
 const embedMethods = require('../helpers/embedMethods');
+const { validatorHandler } = require('../middlewares/validation');
 const router = Router();
 
 const purchaseRouter = {
@@ -15,35 +23,35 @@ const purchaseRouter = {
         {
             method: 'get',
             path: '/',
-            middlewares: [],
+            middlewares: [ validatorHandler(s_findAllPurchases) ],
             controller: findAllPurchases,
         },
         {
             method: 'get',
             path: '/:id',
-            middlewares: [],
+            middlewares: [ validatorHandler(s_findOnePurchase) ],
             controller: findOnePurchase,
         },
         {
             method: 'post',
             path: '/',
-            middlewares: [],
+            middlewares: [ validatorHandler(s_createPurchase) ],
             controller: createPurchase,
         },
         {
             method: 'put',
             path: '/:id',
-            middlewares: [],
+            middlewares: [ validatorHandler(s_updatePurchase) ],
             controller: updatePurchase,
         },
         {
             method: 'delete',
             path: '/:id',
-            middlewares: [],
+            middlewares: [ validatorHandler(s_deletePurchase) ],
             controller: deletePurchase,
-        }
+        },
     ],
-}
+};
 
 embedMethods( purchaseRouter, router );
 
