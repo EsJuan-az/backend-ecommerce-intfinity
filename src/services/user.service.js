@@ -1,13 +1,16 @@
 const boom = require('@hapi/boom');
-const { models: { User, Role } } = require('../libs/sequelize');
+const { models: { User } } = require('../libs/sequelize');
 const { Op } = require('sequelize');
 
 class UserService{
-    static async findAll(){
+    static async findAll(query, offset, limit){
         const users = await User.findAll({
             where: {
                 active: true,
+                ...query,
             },
+            limit,
+            offset,
             include: ['profile', 'role'],
         });
         return users;

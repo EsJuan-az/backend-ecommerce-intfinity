@@ -14,7 +14,7 @@ const {
     s_deleteImage,
 } = require('../schemas/image.schema');
 const embedMethods = require('../helpers/embedMethods');
-const { validatorHandler } = require('../middlewares/validation');
+const { validatorHandler, regexGetAllQuery } = require('../middlewares/validation');
 const router = Router();
 
 const imageRouter = {
@@ -22,7 +22,7 @@ const imageRouter = {
         {
             method: 'get',
             path: '/',
-            middlewares: [ validatorHandler( s_findAllImages ) ],
+            middlewares: [ validatorHandler( s_findAllImages ), regexGetAllQuery ],
             controller: findAllImages,
         },
         {

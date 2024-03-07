@@ -1,8 +1,16 @@
+const { query } = require('express');
 const RoleService = require('../services/role.service')
 module.exports = {
     async findAllRoles(req, res, next){
         try{
-            const roles = await RoleService.findAll();
+            const {
+                query: {
+                    offset = 0,
+                    limit = 10,
+                    ...query
+                }
+            } = req;
+            const roles = await RoleService.findAll(query, offset, limit);
             return res.status(200)
                         .json({
                             result: roles,

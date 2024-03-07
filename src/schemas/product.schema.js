@@ -1,16 +1,23 @@
 const joi = require('joi');
-const { companyId, id, name, color, size, brand, price, refer_id, active, categoryId, providerId } = require('./props');
-
-
-
-
+const { companyId, id, name, color, size, brand, price, refer_id, active, categoryId, providerId, offset, limit } = require('./props');
 
 module.exports = {
     s_findAllProducts: {
         params: joi.object({
             company_id: companyId.required(),
         }),
-        query: joi.object({}),
+        query: joi.object({
+            name: name.optional(),
+            color: color.optional(),
+            size: size.optional(),
+            brand: brand.optional(),
+            price: price.optional(),
+            refer_id: refer_id.optional(),
+            categoryId: categoryId.optional(),
+            providerId: providerId.optional(),
+            offset:  offset.optional(),
+            limit: limit.optional(),
+        }),
     },
     s_findOneProduct: {
         params: joi.object({

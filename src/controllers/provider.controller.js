@@ -4,10 +4,15 @@ module.exports = {
         try{
             const {
                 params: {
-                    company_id
+                    company_id,
+                },
+                query: {
+                    offset = 0,
+                    limit = 10,
+                    ...query
                 },
             } = req;
-            const provider = await ProviderService.findAll( company_id );
+            const provider = await ProviderService.findAll( company_id, query, offset, limit );
             return res.status(200)
                         .json({
                             result: provider,

@@ -1,9 +1,16 @@
 const joi = require('joi');
-const { companyId, id, name, active } = require('./props');
+const { companyId, id, name, active, offset, limit } = require('./props');
 
 module.exports = {
     s_findAllCategories: {
-
+        query: joi.object({
+            name: name.optional(),
+            offset: offset.optional(),
+            limit: limit.optional(),
+        }),
+        params: joi.object({
+            company_id: companyId.required(),
+        }),
     },
     s_findOneCategory: {
         params: joi.object({
@@ -12,10 +19,12 @@ module.exports = {
         }),
     },
     s_createCategory: {
+        params: joi.object({
+            company_id: companyId.required(),
+        }),
         body: joi.object({
             id: id.forbidden,
             name: name.required(),
-            companyId: companyId.required(),
             active: active,
         }),
     },

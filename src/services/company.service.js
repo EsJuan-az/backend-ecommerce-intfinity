@@ -2,11 +2,14 @@ const boom = require('@hapi/boom');
 const { models: { Company } } = require('../libs/sequelize');
 const { Op } = require('sequelize');
 class CompanyService{
-    static async findAll(){
+    static async findAll(query, offset, limit){
         const company = await Company.findAll({
             where: {
                 active: true,
+                ...query,
             },
+            offset,
+            limit,
             include: ['logo'],
         });
         return company;

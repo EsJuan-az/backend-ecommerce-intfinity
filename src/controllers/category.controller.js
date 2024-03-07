@@ -1,13 +1,19 @@
+
 const CategoryService = require('../services/category.service');
 module.exports = {
     async findAllCategories( req, res, next ){
         try{
             const {
                 params: {
-                    company_id
+                    company_id,
+                },
+                query: {
+                    offset = 0,
+                    limit = 10,
+                    ...query
                 },
             } = req;
-            const category = await CategoryService.findAll( company_id );
+            const category = await CategoryService.findAll( company_id, query, offset, limit );
             return res.status(200)
                         .json({
                             result: category,

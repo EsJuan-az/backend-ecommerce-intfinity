@@ -1,13 +1,16 @@
 const boom = require('@hapi/boom');
 const { models: { Category } } = require('../libs/sequelize');
 class CategoryService{
-    static async findAll( company_id ){
+    static async findAll( company_id, query, offset, limit){
         const category = await Category.findAll({
             where: {
                 companyId: company_id,
                 active: true,
+                ...query,
             },
-            include: ['image'],
+            offset,
+            limit,
+            include: ['image'], 
         });
         return category;
     }

@@ -4,6 +4,11 @@ const { companyId, id, status, bill_reference, direction, active, customerId } =
 
 module.exports = {
     s_findAllOrders: {
+        query: joi.object({
+            status: status.optional(),
+            customerId: customerId.optional(),
+            bill_reference: bill_reference.optional(),
+        }),
         params: joi.object({
             company_id: companyId.required(),
         }),

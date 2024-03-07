@@ -1,8 +1,12 @@
 const boom = require('@hapi/boom');
 const { models: { Image } } = require('../libs/sequelize');
 class ImageService{
-    static async findAll(){
-        const image = await Image.findAll();
+    static async findAll(query, offset, limit){
+        const image = await Image.findAll({
+            where: query,
+            offset,
+            limit,
+        });
         return image;
     }
     static async findOne( id ){

@@ -16,7 +16,7 @@ const {
     s_loginCustomer,
 } = require('../schemas/customer.schema');
 const embedMethods = require('../helpers/embedMethods');
-const { validatorHandler } = require('../middlewares/validation');
+const { validatorHandler, regexGetAllQuery } = require('../middlewares/validation');
 const router = Router();
 
 const customerRouter = {
@@ -25,7 +25,7 @@ const customerRouter = {
         {
             method: 'get',
             path: '/',
-            middlewares: [validatorHandler( s_findAllCustomers )],
+            middlewares: [validatorHandler( s_findAllCustomers ), regexGetAllQuery],
             controller: findAllCustomers,
         },
         {

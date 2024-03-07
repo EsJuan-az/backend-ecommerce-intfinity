@@ -1,5 +1,5 @@
 const joi = require('joi');
-const { companyId, id, name, NIT, direction, description, phone, email, active } = require('./props');
+const { companyId, id, name, NIT, direction, description, phone, email, active, offset, limit } = require('./props');
 
 
 module.exports = {
@@ -7,7 +7,12 @@ module.exports = {
         params: joi.object({
             company_id: companyId.required(),
         }),
-        query: joi.object({}),
+        query: joi.object({
+            name: name.optional(),
+            email: email.optional(),
+            offset: offset.optional(),
+            limit: limit.optional(),
+        }),
     },
     s_findOneProvider: {
         params: joi.object({

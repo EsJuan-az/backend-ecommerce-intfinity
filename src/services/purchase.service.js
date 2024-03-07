@@ -1,13 +1,16 @@
 const boom = require('@hapi/boom');
 const { models: { Purchase } } = require('../libs/sequelize');
 class PurchaseService{
-    static async findAll( company_id ){
+    static async findAll( company_id, query, offset, limit ){
         const purchase = await Purchase.findAll({
             where: {
                 companyId: company_id,
                 active: true,
+                ...query,
             },
             include:[ 'products', 'responsible' ],
+            offset,
+            limit,
         });
         return purchase;
     }

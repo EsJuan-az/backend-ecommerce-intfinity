@@ -1,9 +1,14 @@
 const joi = require('joi');
-const { id, holder, name, NIT, bank_account_type, social_reason, bank, phone, email, password, active, bank_account_number } = require('./props');
+const { id, holder, name, NIT, bank_account_type, social_reason, bank, phone, email, password, active, bank_account_number, offset, limit } = require('./props');
 
 module.exports = {
     s_findAllCompanies: {
-        
+        query: joi.object({
+            name: name.optional(),
+            email: email.optional(),
+            offset: offset.optional(),
+            limit: limit.optional(),
+        }),
     },
     s_findOneCompany: {
         params: joi.object({

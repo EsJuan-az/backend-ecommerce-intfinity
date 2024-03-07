@@ -6,8 +6,13 @@ module.exports = {
                 params: {
                     company_id,
                 },
+                query: {
+                    offset = 0,
+                    limit = 10,
+                    ...query
+                },
             } = req;
-            const customer = await CustomerService.findAll( company_id );
+            const customer = await CustomerService.findAll( company_id, query, offset, limit );
             return res.status(200)
                         .json({
                             result: customer,

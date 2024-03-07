@@ -14,7 +14,7 @@ const {
     s_deleteCategory,
 } = require('../schemas/category.schema');
 const embedMethods = require('../helpers/embedMethods');
-const { validatorHandler } = require('../middlewares/validation');
+const { validatorHandler, regexGetAllQuery } = require('../middlewares/validation');
 const router = Router();
 
 const categoryRouter = {
@@ -23,7 +23,7 @@ const categoryRouter = {
         {
             method: 'get',
             path: '/',
-            middlewares: [validatorHandler(s_findAllCategories)],
+            middlewares: [validatorHandler(s_findAllCategories), regexGetAllQuery],
             controller: findAllCategories,
         },
         {

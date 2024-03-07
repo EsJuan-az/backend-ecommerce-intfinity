@@ -1,12 +1,16 @@
 const boom = require('@hapi/boom');
 const { models: { Branch } } = require('../libs/sequelize');
 class BranchService{
-    static async findAll( company_id ){
+    static async findAll( company_id, query, offset, limit ){
+        
         const branch = await Branch.findAll({
             where: {
                 companyId: company_id,
                 active: true,
+                ...query,
             },
+            offset,
+            limit,
         });
         return branch;
     }

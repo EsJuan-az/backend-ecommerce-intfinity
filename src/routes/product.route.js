@@ -14,7 +14,7 @@ const {
     s_deleteProduct,
 } = require('../schemas/product.schema');
 const embedMethods = require('../helpers/embedMethods');
-const { validatorHandler } = require('../middlewares/validation');
+const { validatorHandler, regexGetAllQuery } = require('../middlewares/validation');
 const router = Router();
 
 const productRouter = {
@@ -23,7 +23,7 @@ const productRouter = {
         {
             method: 'get',
             path: '/',
-            middlewares: [ validatorHandler( s_findAllProducts ) ],
+            middlewares: [ validatorHandler( s_findAllProducts ), regexGetAllQuery ],
             controller: findAllProducts,
         },
         {

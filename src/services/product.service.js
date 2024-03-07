@@ -1,12 +1,15 @@
 const boom = require('@hapi/boom');
 const { models: { Product } } = require('../libs/sequelize');
 class ProductService{
-    static async findAll( company_id ){
+    static async findAll( company_id, query, offset, limit ){
         const products = await Product.findAll({
             where: {
                 companyId: company_id,
                 active: true,
+                ...query,
             },
+            offset,
+            limit,
             include: ['category', 'images'],
         });
         return products;

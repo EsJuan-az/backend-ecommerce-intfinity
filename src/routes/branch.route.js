@@ -15,7 +15,7 @@ const {
     s_deleteBranch,
 } = require('../schemas/branch.schema');
 
-const { validatorHandler } = require('../middlewares/validation');
+const { validatorHandler, regexGetAllQuery } = require('../middlewares/validation');
 const embedMethods = require('../helpers/embedMethods');
 const router = Router();
 
@@ -25,7 +25,7 @@ const branchRouter = {
         {
             method: 'get',
             path: '/',
-            middlewares: [ validatorHandler( s_findAllBranches ) ],
+            middlewares: [ validatorHandler( s_findAllBranches ), regexGetAllQuery ],
             controller: findAllBranches,
         },
         {

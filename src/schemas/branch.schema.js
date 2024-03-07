@@ -1,8 +1,15 @@
 const joi = require('joi');
-const { companyId, id, name, direction, city, email, phone, active } = require('./props');
+const { companyId, id, name, direction, city, email, phone, active, offset, limit } = require('./props');
 
 module.exports = {
     s_findAllBranches: {
+        query: joi.object({
+            name: name.optional(),
+            city: city.optional(),
+            email: email.optional(),
+            offset: offset.optional(),
+            limit: limit.optional(),
+        }),
         params: joi.object({
             company_id: companyId.required(),
         }),

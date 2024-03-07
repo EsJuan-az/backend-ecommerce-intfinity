@@ -1,5 +1,5 @@
 const joi = require('joi');
-const { companyId, id, customer_email, type, reason, refund_number, branchId, userId, purchaseId, active } = require('./props');
+const { companyId, id, customer_email, type, reason, refund_number, branchId, userId, purchaseId, active, offset, limit } = require('./props');
 
 
 
@@ -8,7 +8,14 @@ module.exports = {
         params: joi.object({
             company_id: companyId.required(),
         }),
-        query: joi.object({}),
+        query: joi.object({
+            offset: offset.optional(),
+            limit: limit.optional(),
+            customer_email: customer_email.optional(),
+            branchId: branchId.optional(),
+            userId: userId.optional(),
+            purchaseId: purchaseId.optional(),
+        }),
     },
     s_findOneRefund: {
         params: joi.object({

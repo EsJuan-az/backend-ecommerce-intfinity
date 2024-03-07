@@ -1,5 +1,8 @@
 const joi = require('joi');
 module.exports = {
+    offset: joi.number().integer().min(0),
+    limit: joi.number().integer(),
+
     id: joi.number().integer().min(1),
     branchId: joi.number().integer().min(1),
     roleId: joi.number().integer().min(1),

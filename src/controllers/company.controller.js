@@ -2,7 +2,14 @@ const CompanyService = require('../services/company.service')
 module.exports = {
     async findAllCompanies(req, res, next){
         try{
-            const companies = await CompanyService.findAll();
+            const {
+                query: {
+                    offset = 0,
+                    limit = 10,
+                    ...query
+                },
+            } = req;
+            const companies = await CompanyService.findAll(query, offset, limit);
             return res.status(200)
                         .json({
                             result: companies,

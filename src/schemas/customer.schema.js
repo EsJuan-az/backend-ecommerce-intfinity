@@ -1,8 +1,15 @@
 const joi = require('joi');
-const { companyId, id, email, password, name, last_name, phone, active } = require('./props');
+const { companyId, id, email, password, name, last_name, phone, active, offset, limit } = require('./props');
 
 module.exports = {
     s_findAllCustomers: {
+        query: joi.object({
+            email: email.optional(),
+            name: name.optional(),
+            last_name: last_name.optional(),
+            offset: offset.optional(),
+            limit: limit.optional(),
+        }),
         params: joi.object({
             company_id: companyId.required(),
         }),

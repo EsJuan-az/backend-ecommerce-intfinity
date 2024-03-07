@@ -14,7 +14,7 @@ const {
     s_deleteRefund,
 } = require('../schemas/refund.schema');
 const embedMethods = require('../helpers/embedMethods');
-const { validatorHandler } = require('../middlewares/validation');
+const { validatorHandler, regexGetAllQuery } = require('../middlewares/validation');
 const router = Router();
 
 const purchaseRouter = {
@@ -23,7 +23,7 @@ const purchaseRouter = {
         {
             method: 'get',
             path: '/',
-            middlewares: [ validatorHandler(s_findAllRefunds) ],
+            middlewares: [ validatorHandler(s_findAllRefunds), regexGetAllQuery ],
             controller: findAllRefunds,
         },
         {

@@ -14,7 +14,7 @@ const {
     s_deleteRole,
 } = require('../schemas/role.schema');
 const embedMethods = require('../helpers/embedMethods');
-const { validatorHandler } = require('../middlewares/validation');
+const { validatorHandler, regexGetAllQuery } = require('../middlewares/validation');
 const router = Router();
 
 const roleRouter = {
@@ -22,7 +22,7 @@ const roleRouter = {
         {
             method: 'get',
             path: '/',
-            middlewares: [ validatorHandler( s_findAllRoles ) ],
+            middlewares: [ validatorHandler( s_findAllRoles ), regexGetAllQuery ],
             controller: findAllRoles,
         },
         {

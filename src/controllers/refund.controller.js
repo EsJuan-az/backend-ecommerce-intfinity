@@ -5,10 +5,15 @@ module.exports = {
         try{
             const {
                 params: {
-                    company_id
+                    company_id,
+                },
+                query: {
+                    offset = 0,
+                    limit = 10,
+                    ...query
                 },
             } = req;
-            const refund = await RefundService.findAll( company_id );
+            const refund = await RefundService.findAll( company_id, query, offset, limit );
             return res.status(200)
                         .json({
                             result: refund,

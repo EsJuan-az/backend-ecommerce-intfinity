@@ -1,8 +1,16 @@
+const { query } = require('express');
 const ImageService = require('../services/image.service')
 module.exports = {
     async findAllImages(req, res, next){
         try{
-            const images = await ImageService.findAll();
+            const {
+                query: {
+                    offset = 0,
+                    limit = 10,
+                    ...query
+                },
+            } = req;
+            const images = await ImageService.findAll(query, offset, limit);
             return res.status(200)
                         .json({
                             result: images,

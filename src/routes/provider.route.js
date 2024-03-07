@@ -14,7 +14,7 @@ const {
     s_deleteProvider,
 } = require('../schemas/provider.schema');
 const embedMethods = require('../helpers/embedMethods');
-const { validatorHandler } = require('../middlewares/validation');
+const { validatorHandler, regexGetAllQuery } = require('../middlewares/validation');
 const router = Router();
 
 const providerRouter = {
@@ -23,7 +23,7 @@ const providerRouter = {
         {
             method: 'get',
             path: '/',
-            middlewares: [ validatorHandler(s_findAllProviders) ],
+            middlewares: [ validatorHandler(s_findAllProviders), regexGetAllQuery ],
             controller: findAllProviders,
         },
         {

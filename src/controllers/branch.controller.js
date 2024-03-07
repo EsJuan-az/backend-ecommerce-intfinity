@@ -6,8 +6,13 @@ module.exports = {
                 params: {
                     company_id,
                 },
+                query: {
+                    offset = 0,
+                    limit = 10,
+                    ...query
+                },
             } = req;
-            const branches = await BranchService.findAll( company_id );
+            const branches = await BranchService.findAll( company_id, query, offset, limit);
             return res.status(200)
                         .json({
                             result: branches,
@@ -58,7 +63,7 @@ module.exports = {
             const {
                 params: {
                     company_id,
-                    id
+                    id,
                 },
                 body,
             } = req;
@@ -90,4 +95,4 @@ module.exports = {
             next(err);
         }
     },
-}
+};

@@ -2,8 +2,12 @@ const boom = require('@hapi/boom');
 const { models: { Role } } = require('../libs/sequelize');
 
 class RoleService{
-    static async findAll(){
-        const roles = await Role.findAll();
+    static async findAll(query, offset, limit){
+        const roles = await Role.findAll({
+            where: query,
+            offset,
+            limit,
+        });
         return roles;
     }
     static async findOne( id ){

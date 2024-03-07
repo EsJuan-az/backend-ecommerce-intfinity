@@ -1,10 +1,18 @@
 const joi = require('joi');
-const { id, alternative_text, productId, companyId, categoryId, userId, URL } = require('./props');
+const { id, alternative_text, productId, companyId, categoryId, userId, URL, offset, limit } = require('./props');
 
 module.exports = {
     s_findAllImages: {
         params: joi.object({}),
-        query: joi.object({}),
+        query: joi.object({
+            alternative_text: alternative_text.optional(),
+            productId: productId.optional(),
+            companyId: companyId.optional(),
+            categoryId: categoryId.optional(),
+            userId: userId.optional(),
+            offset: offset.optional(),
+            limit: limit.optional(),
+        }),
     },
     s_findOneImage: {
         params: joi.object({

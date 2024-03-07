@@ -14,7 +14,7 @@ const {
     s_deleteOrder,
 } = require('../schemas/order.schema');
 const embedMethods = require('../helpers/embedMethods');
-const { validatorHandler } = require('../middlewares/validation');
+const { validatorHandler, regexGetAllQuery } = require('../middlewares/validation');
 const router = Router();
 
 const orderRouter = {
@@ -23,7 +23,7 @@ const orderRouter = {
         {
             method: 'get',
             path: '/',
-            middlewares: [ validatorHandler( s_findAllOrders ) ],
+            middlewares: [ validatorHandler( s_findAllOrders ), regexGetAllQuery ],
             controller: findAllOrders,
         },
         {

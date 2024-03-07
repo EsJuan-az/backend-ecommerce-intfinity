@@ -1,11 +1,16 @@
 const joi = require('joi');
-const { name, permissions, active, id } = require('./props');
+const { name, permissions, active, id, offset, limit } = require('./props');
 
 module.exports = {
     s_findAllRoles: {},
     s_findOneRole: {
         params: joi.object({
             id: id.required(),
+        }),
+        query: joi.object({
+            name: name.optional(),
+            offset: offset.optional(),
+            limit: limit.optional(),
         }),
     },
     s_createRole: {
